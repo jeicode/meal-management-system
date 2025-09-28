@@ -1,0 +1,58 @@
+<div id="status-orders" class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+    <h2 class="text-xl font-semibold text-green-400 mb-4 flex items-center gap-2">
+      <span class="bg-green-900/50 p-1 rounded-lg">🍳</span>
+      Estado de las ordenes
+    </h2>
+    <span>
+      @if (errorMessage()) {
+        <p class="text-red-400">{{errorMessage()}}</p>
+      }
+    </span>
+    <div class="space-y-3">
+      @for(order of pendingOrders(); track $index) {
+        <div
+          class="p-4 bg-gray-700/50 rounded-lg border-l-4 hover:bg-gray-700 transition-colors" 
+          [ngClass]="{
+            'border-yellow-500': order.status === orderStatus.WAITING_FOR_INGREDIENTS,
+            'border-blue-500': order.status === orderStatus.PREPARING
+          }">
+          <div class="flex justify-between items-center">
+            <span class="font-medium"> ORDEN #{{order.id}}</span>
+            <span class="text-sm px-2 py-1 rounded-full" [ngClass]="{
+                          'bg-yellow-900/50 text-yellow-400': order.status === orderStatus.WAITING_FOR_INGREDIENTS,
+                          'bg-blue-900/50 text-blue-400': order.status === orderStatus.PREPARING
+                        }">
+              {{order.status | statusIcon}}
+            </span>
+          </div>
+          @for(recipe of order.listRecipes; track $index) {
+          <div class="text-sm text-gray-400 mt-2 border-t border-gray-700">
+            {{recipe.name}}
+            <div class="flex flex-wrap gap-1">
+              @if (recipe.ingredients[0].ingredientName) {
+                @for(ing of recipe.ingredients; track $index) {
+                  @if(orderIsPreparing(order)) {
+                    <span 
+                      class="px-2 py-1 rounded-md text-xs bg-gray-600">
+                      {{ing.ingredientName}} / {{ing.quantity}} und.
+                    </span>
+                  }
+                  @else {
+                    <span 
+                      [ngClass]="{'bg-red-600': ing.missingAmount > 0, 'bg-gray-600': ing.missingAmount == 0}"
+                      class="px-2 py-1 rounded-md text-xs">
+                      {{ing.ingredientName}} / {{ing.quantity}} und.
+                    </span>
+                  }
+                }
+              }
+            </div>
+          </div>
+          }
+        </div>
+      }
+      @empty {
+        <div class="bg-gray-800/20 p-4 rounded-lg text-center"><p class="text-gray-400 italic">Esperando órdenes...</p></div>
+      }
+    </div>
+  </div>

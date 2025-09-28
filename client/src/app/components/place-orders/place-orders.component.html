@@ -1,0 +1,72 @@
+<!-- Sección de Pedidos -->
+<div style="position: relative;" class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+  <form (ngSubmit)="placeOrder()" [formGroup]="initOrderForm">
+    <h2 class="text-xl font-semibold text-blue-400 mb-4 flex justify-between align-center items-center gap-2">
+      <div class="">
+        <span class="bg-blue-900/50 p-1 rounded-lg">📤</span>
+        Ingresa la cantidad de platos 
+      </div>
+      <app-modal-recipes></app-modal-recipes>
+    </h2>
+    <div class="flex flex-col gap-3">
+      <input type="number" formControlName="dishes"
+        class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        placeholder="Cantidad de platos">
+      <span class="text-red-400 text-sm h-4">
+        @if (hasErrorsField('dishes')) {
+          Cada orden debe contener entre 1 y 15 platos.
+        }
+        @if(errorMessage()){
+          {{errorMessage()}}
+        }
+      </span>
+
+      <button [disabled]="orderIsProcesing()" [ngStyle]="{opacity: orderIsProcesing() ? 0.5 : 1}" type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg transition-all hover:scale-[1.02] active:scale-95">
+        {{orderIsProcesing() ? 'Procesando orden..' : 'Enviar a Cocina 🚀'}}
+      </button>
+      @if (orderIsProcesing()) {
+      <span class="text-gray-400 mt-1 text-sm">La solicitud puede demorar unos segundos, espera un momento...</span>
+      }
+    </div>
+  </form>
+
+  <div class="order-delivered">
+    <h2 class="mt-7 text-xl font-semibold text-green-300 mb-4 flex items-center gap-2">
+      <span class="bg-green-800/30 p-2 rounded-lg flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clip-rule="evenodd" />
+        </svg>
+      </span>
+      Últimas órdenes entregadas
+    </h2>
+
+    <div class="space-y-3 scroll-smooth">
+      @for (order of ordersDelivered(); track $index) {
+      <div class="bg-gray-800/50 bg-green-900/30 
+        transition-colors duration-200 p-4 rounded-lg 
+        border-l-4 
+        border-green-500 shadow-sm">
+        <div class="flex justify-between items-start">
+          <p class="font-medium text-green-200">Orden #{{order.id}}</p>
+        </div>
+        <p class="text-gray-400 text-sm mt-1">{{order.createdAt | date: 'yyyy-MM-dd h:mm a' }}</p>
+      </div>
+      }
+      @empty {
+      <div class="bg-gray-800/20 p-4 rounded-lg text-center">
+        <p class="text-gray-400 italic">No hay órdenes entregadas</p>
+      </div>
+      }
+
+      <a routerLink="/historial-pedidos">
+        <button
+          class="cursor-pointer text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+          Ver todas las órdenes
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4.1.0-rc.1-alpine 
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    restart: always
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - 3000:3000
+    env_file:
+      - ./api-gateway/.env
+    depends_on:
+      - rabbitmq
+
+  kitchen-ms:
+    build:
+      context: ./kitchen-ms
+    container_name: kitchen-ms
+    env_file:
+      - ./kitchen-ms/.env
+    depends_on:
+      - rabbitmq
+
+  food-inventory-ms:
+    build:
+      context: ./food-inventory-ms
+    container_name: food-inventory-ms
+    env_file:
+      - ./food-inventory-ms/.env
+    depends_on:
+      - rabbitmq

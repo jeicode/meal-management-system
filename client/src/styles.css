@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* Forzar modo oscuro global */
+:root {
+    --bg-color: #05070d;
+    --text-color: #ffffff;
+    --link-color: #90caf9;
+    --card-bg-color: #1e1e1e;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+}

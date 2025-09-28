@@ -1,0 +1,43 @@
+<div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+    <h2 class="text-xl font-semibold text-orange-400 mb-4 flex items-center gap-2">
+      <span class="bg-orange-900/50 p-1 rounded-lg">📦</span>
+      Inventario Bodega
+    </h2>
+    <span>
+      @if (errorMessage()) {
+        <p class="text-red-400">{{errorMessage()}}</p>
+      }
+    </span>
+    <div class="grid grid-cols-1 gap-3">
+      @for(ingredient of ingredients(); track $index) {
+        <div class="p-3 bg-gray-700/40 rounded-lg hover:bg-gray-700 transition-colors">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">{{ingredient.name}}</span>
+            <span class="text-sm font-mono" [ngClass]="{
+                  'text-red-400': ingredient.quantity_available < 2,
+                  'text-yellow-400': ingredient.quantity_available < 5,
+                  'text-green-400': ingredient.quantity_available >= 5
+                }">
+              {{ingredient.quantity_available}} <span class="text-gray-500">unid.</span>
+            </span>
+          </div>
+          <div class="mt-1 h-1.5 w-full bg-gray-600 rounded-full overflow-hidden">
+            <div class="h-full rounded-full" [ngClass]="{
+                      'bg-red-500': ingredient.quantity_available < 2,
+                      'bg-yellow-500': ingredient.quantity_available < 5,
+                      'bg-green-500': ingredient.quantity_available >= 5
+                  }" [style.width.%]="(ingredient.quantity_available / 5) * 100"></div>
+          </div>
+        </div>
+      }
+
+      @empty {
+        @if (loading()) {
+          <div class="bg-gray-800/20 p-4 rounded-lg text-center"><p class="text-gray-400 italic">Cargando inventario...</p></div>
+        }
+        @else {
+          <div class="bg-gray-800/20 p-4 rounded-lg text-center"><p class="text-gray-400 italic">No hay inventario disponible</p></div>
+        }
+      }
+    </div>  
+  </div>
