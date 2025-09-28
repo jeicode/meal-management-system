@@ -1,5 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
-
+import { Pipe, type PipeTransform  } from '@angular/core';
 
 @Pipe({ name: 'statusIcon' })
 export class StatusIconPipe implements PipeTransform {

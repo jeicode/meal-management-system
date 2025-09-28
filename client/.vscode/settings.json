@@ -1,0 +1,10 @@
+{
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "oxc.fmt.experimental": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.oxc": true,
+      "source.fixAll.eslint": true
+    },
+    "oxc.requireConfig": false
+  }
+  

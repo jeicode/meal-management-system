@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { IOrderHistory } from '../../interfaces/order-history.interface';
+import type { IOrderHistory } from "../../interfaces/order-history.interface";
 import { StatusIconPipe } from '../../shared/pipes/status-icon.pipe';
 import { DatePipe } from '@angular/common';
 import { KitchenService } from '../../shared/apis/kitchen.service';
@@ -28,7 +28,7 @@ export class OrderHistoryComponent implements OnInit {
   refresh() {
     this.loadingData.set(true)
     setTimeout(() => {
-      this.getOrdersHistory();
+       this.getOrdersHistory();
     }, 1100);
   }
 
@@ -38,7 +38,7 @@ export class OrderHistoryComponent implements OnInit {
     this._kitchenService.getOrders().subscribe({
       next: (response) => {
         this.loadingData.set(false)
-        if (response.error)return
+        if (response.error){return}
         this.ordersHistory.set(response.data);
       },
       error: (error) => {

@@ -19,7 +19,7 @@ export class InventoryService {
         each: 20000,
         with: () => throwError(() => TIMEOUT_ERROR)
       }),
-      catchError(err => {
+      catchError(() => {
         return of(SERVER_ERROR);
       })
     )
@@ -32,7 +32,7 @@ export class InventoryService {
         each: 20000,
         with: () => throwError(() => TIMEOUT_ERROR)
       }),
-      catchError(err => {
+      catchError(() => {
         return of(SERVER_ERROR);
       })
     )
@@ -45,7 +45,7 @@ export class InventoryService {
         each: 20000,
         with: () => throwError(() => TIMEOUT_ERROR)
       }),
-      catchError(err => {
+      catchError(() => {
         return of(SERVER_ERROR);
       })
     )
