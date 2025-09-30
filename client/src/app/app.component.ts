@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
+import { SSEService } from './shared/apis/sse.service';
 
 
 @Component({
@@ -11,5 +12,10 @@ import { HeaderComponent } from './components/header/header.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  sseService = inject(SSEService);
   
+  constructor() {
+    this.sseService.suscribeToSSE();
+  }
 }

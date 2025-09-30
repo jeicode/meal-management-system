@@ -19,7 +19,7 @@ export class KitchenService {
         each: 20000,
         with: () => throwError(() => TIMEOUT_ERROR)
       }),
-      catchError(err => {
+      catchError( () => {
         return of(SERVER_ERROR);
       })
     )
@@ -28,12 +28,12 @@ export class KitchenService {
 
   placeOrder(orders: number): Observable<any> {
     const url = `${environment.API_URL}/v1/kitchen/order?dishes=${orders}`
-    return this._http.get<any>(url).pipe(
+    return this._http.post(url,{}).pipe(
       timeout({
         each: 20000,
         with: () => throwError(() => TIMEOUT_ERROR)
       }),
-      catchError(err => {
+      catchError( () => {
         return of(SERVER_ERROR);
       })
     )
@@ -46,7 +46,7 @@ export class KitchenService {
         each: 20000,
         with: () => throwError(() => TIMEOUT_ERROR)
       }),
-      catchError(err => {
+      catchError( () => {
         return of(SERVER_ERROR);
       })
     )

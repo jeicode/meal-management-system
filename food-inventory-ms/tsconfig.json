@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["node_modules/@types"],
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "target": "ES2024",                                
+    "module": "commonjs",                                
+    "baseUrl": ".",    
+    "rootDir": "./",                                
+    "forceConsistentCasingInFileNames": true,            
+    "strict": true,                                      
+  },
+  "include": ["src/**/*"]
+}

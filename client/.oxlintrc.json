@@ -8,14 +8,14 @@
       "files": ["**/*.{ts,tsx}"],
       "plugins": ["typescript"],
       "rules": {
-        "typescript/no-explicit-any": "warn"
+        "typescript/no-explicit-any": "off"
       }
     },
     {
       "files": ["**/*.spec.ts"],
       "env": { "jest": true },
       "rules": {
-        "no-empty-function": "off"
+        "no-empty-function": "error"
       }
     }
   ],

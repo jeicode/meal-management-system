@@ -9,13 +9,8 @@ export class SSEService {
 
   source!: EventSource;
 
-  constructor(){
-    if (!this.source) {
-      this.suscribeToSSE()
-    }
-  }
-
-  private suscribeToSSE(): EventSource {
+  suscribeToSSE(): EventSource {
+    if (this.source) return this.source;
     const url = `${environment.API_URL}/v1/sse`
     this.source = new EventSource(url);
     this.source.onerror = (error) => {

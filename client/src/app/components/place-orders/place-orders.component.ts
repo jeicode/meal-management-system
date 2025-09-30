@@ -95,16 +95,14 @@ export class PlaceOrdersComponent implements OnInit {
   }
 
   async placeOrder(){
-    if (this.initOrderForm.invalid) {
-      return this.showErrorsForm.set(true)
-    }
-    else if(this.orderIsProcesing()) return
+    if(this.orderIsProcesing()) return
+    if (this.initOrderForm.invalid) return this.showErrorsForm.set(true)
     
     this.orderIsProcesing.set(true)
     this.errorMessage.set('');
 
     const value = this.initOrderForm.getRawValue().dishes
-    const res:any = await firstValueFrom(this._kitchenService.placeOrder(Number(value)))
+    const res = await firstValueFrom(this._kitchenService.placeOrder(Number(value)))
     this.initOrderForm.reset()
     this.orderIsProcesing.set(false)
 
@@ -112,7 +110,7 @@ export class PlaceOrdersComponent implements OnInit {
       return this.errorMessage.set(res.error?.message)
     }
     this.toastr.success('Orden enviada a cocina 🚀', '', {
-      timeOut: 3000,
+      timeOut: 2000,
     });
     scrollIntoView('status-orders')
   }
