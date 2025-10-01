@@ -15,11 +15,11 @@ const inventoryService = new InventoryService(new RabbitMQInventoryDatasource())
  */
 export async function getPurchaseHistoryController(req: Request, res: ServerResponse) {
     try {
-      const { take, skip } = req.query as any;
+      const { take, skip } = req.query;
       const data = await inventoryService.getInventoryPurchaseHistory({ take: Number(take), skip: Number(skip) });
       if (data.error) return sendResponse({ res, status: 500, data });
       sendResponse({ res, status: 200, data });
-    } catch (err: any) {
+    } catch (err) {
       handleError(err, res);
     }
   }
@@ -31,11 +31,11 @@ export async function getPurchaseHistoryController(req: Request, res: ServerResp
  */
 export async function getInventoryIngredientsController(req: IncomingMessage, res: ServerResponse) {
     try {
-        const data:any = await inventoryService.getInventoryIngredients();
+        const data = await inventoryService.getInventoryIngredients();
         if (data.error) return sendResponse({res, status: 500, data:{error: data.error}});
         sendResponse({res, status: 200, data: {data}});
 
-    } catch (err: any) {
+    } catch (err) {
         handleError(err, res);
     }
 }

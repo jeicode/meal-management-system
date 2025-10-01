@@ -14,8 +14,8 @@ describe('orderSchema validation', () => {
     await expect(orderSchema.isValid(invalidData)).resolves.toBe(false);
     try {
       await orderSchema.validate(invalidData);
-    } catch (error:any) {
-      expect(error.message).toBe('You must send at least one dish');
+    } catch (error) {
+      expect((error as Error).message).toBe('You must send at least one dish');
     }
   });
 
@@ -25,8 +25,8 @@ describe('orderSchema validation', () => {
     await expect(orderSchema.isValid(invalidData)).resolves.toBe(false);
     try {
       await orderSchema.validate(invalidData);
-    } catch (error:any) {
-      expect(error.message).toBe('You can send a maximum of 15 dishes');
+    } catch (error) {
+      expect((error as Error)?.message).toBe('You can send a maximum of 15 dishes');
     }
   });
 
@@ -35,8 +35,8 @@ describe('orderSchema validation', () => {
     await expect(orderSchema.isValid(invalidData)).resolves.toBe(false);
     try {
       await orderSchema.validate(invalidData);
-    } catch (error:any) {
-      expect(error.message).toBe('Param dishes is required');
+    } catch (error) {
+      expect((error as Error)?.message).toBe('Param dishes is required');
     }
   });
 });

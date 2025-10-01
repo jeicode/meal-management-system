@@ -4,7 +4,7 @@ import { KitchenDatasource } from "./datasource";
 export class KitchenService {
   constructor(private readonly datasource: KitchenDatasource) {}
 
-  async getKitchenOrders(params: { take: number; skip: number; where: any; orderBy: any }) {
+  async getKitchenOrders(params: { take: number; skip: number; where: unknown; orderBy: unknown }) {
     return await this.datasource.getKitchenOrders(params);
   }
   

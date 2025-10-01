@@ -8,7 +8,7 @@ export const orderSchema = yup.object().shape({
 
 export const getOrdersSchema = yup.object({
   where: yup.object({
-    status: yup.mixed().notRequired().test('is-valid-status', 'Invalid status', (value:any) => {
+    status: yup.mixed().notRequired().test('is-valid-status', 'Invalid status', (value) => {
       if (value === undefined || value === null) return true; // <<< permite vacío
       if (typeof value === 'string') {
         return true;
@@ -17,10 +17,10 @@ export const getOrdersSchema = yup.object({
         typeof value === 'object' &&
         value !== null
       ) {
-        const { in: inArray } = value;
+        const { in: inArray } = value as { in: string[] };
         return (
           Array.isArray(inArray) &&
-          inArray.every((item: any) => typeof item === 'string')
+          inArray.every((item) => typeof item === 'string')
         );
       }
       return false;

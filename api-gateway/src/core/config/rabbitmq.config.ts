@@ -54,8 +54,8 @@ export async function connectRabbitMQ(retries = 5) {
       logError('❌ Error en RabbitMQ:', err.message);
       reconnectRabbitMQ();
     });
-  } catch (err: any) {
-    logError('❌ Error conectando a RabbitMQ:', err.message);
+  } catch (err) {
+    logError('❌ Error conectando a RabbitMQ:', (err as Error)?.message);
     if (retries > 0) {
       setTimeout(() => connectRabbitMQ(retries - 1), 5000);
     } else {

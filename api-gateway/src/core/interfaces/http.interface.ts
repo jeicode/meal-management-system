@@ -1,8 +1,9 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { AnyObject } from "yup";
 
 export interface Request extends IncomingMessage {
-    query: Record<string, any>;
-    body: Record<string, any>;
+    query: Record<string, unknown>;
+    body: Record<string, unknown>;
 }
 
 
@@ -11,6 +12,6 @@ export interface Route {
   path: string;
   isSSE?: boolean;
   controller: (req: Request, res: ServerResponse) => Promise<void> | void;
-  schema?: any; // Yup schema opcional
+  schema?: AnyObject; // Yup schema opcional
   validateOn?: "body" | "query";
 };

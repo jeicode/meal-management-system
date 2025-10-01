@@ -1,19 +1,21 @@
-import { setupRabbitMQ } from "./config/rabbitmq.config";
-import { listenOrdersPendingOrPreparing, rpcApiGatewayOrders } from "./events/api-gateway.events";
-import { rpcFoodInventoryHistoryRequest } from "./events/food-inventory.events";
-import { rpcOrdersDelivered, rpcOrdersHistory, rpcRecipes } from "./events/kitchen.events";
+import { initRabbitMQ } from "./config/rabbitmq.config";
 import { prepareOrdersJob } from "./jobs";
+import { rpcApiGatewayOrders, rpcOrdersPendingOrPreparing } from "./modules/api-gateway/events";
+import { rpcFoodInventoryHistoryRequest } from "./modules/food-inventory/events";
+import { rpcOrdersDelivered, rpcOrdersHistory, rpcRecipes } from "./modules/kitchen/events";
 
 
-setupRabbitMQ().then(() => {
-    listenOrdersPendingOrPreparing();
-    
-    rpcApiGatewayOrders();
+function initEvents() {
+    rpcOrdersPendingOrPreparing();
     rpcFoodInventoryHistoryRequest();
+    rpcApiGatewayOrders();
     rpcOrdersDelivered();
     rpcOrdersHistory();
     rpcRecipes();
-    // JOBS
+}
+
+initRabbitMQ().then(() => {
+    initEvents();
     prepareOrdersJob();
 })
 
