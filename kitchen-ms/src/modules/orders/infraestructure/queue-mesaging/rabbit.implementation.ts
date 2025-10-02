@@ -1,8 +1,7 @@
-// infra/rabbit/rabbit.implementation.ts
 import { channel } from "src/config/rabbitmq.config";
-import { KITCHEN_ORDERS_PENDING_QUEUE, KITCHEN_ORDERS_QUEUE } from "src/domain/constants/raabitmq.constants";
-import { OrdersDatasource } from "src/modules/orders/datasource";
-import { processKitchenOrders } from "src/modules/kitchen/utils";
+import { KITCHEN_ORDERS_PENDING_QUEUE, KITCHEN_ORDERS_QUEUE } from "src/core/constants/raabitmq.constants";
+import { OrdersDatasource } from "src/modules/orders/domain/datasources/orders.datasource";
+import { processKitchenOrders } from "src/modules/kitchen/domain/services/process-orders.service";
 
 export class RabbitOrdersDatasource implements OrdersDatasource {
   async publishPendingOrder(payload: unknown): Promise<void> {

@@ -1,17 +1,18 @@
-import { setupRabbitMQ } from "./config/rabbitmq.config";
-import { 
-    rpcHistoryPurchase, 
-    rpcInventoryIngredients, 
-    suscribeIngredientsChanges } 
-from "./events/inventory.events";
-import { rpcKitchenRequests } from "./events/kitchen.events";
-import { makePendingIngredientPurchases } from "./jobs/jobs";
+import { runRabbitMQ } from "./config/rabbitmq.config";
+import { rpcKitchenRequests } from "./modules/kitchen/presentation/kitchen.events";
+import { makePendingIngredientPurchases } from "./core/jobs/jobs";
+import { rpcHistoryPurchase, rpcInventoryIngredients, suscribeIngredientsChanges } from "./modules/food-inventory/presentation/food-inventory.events";
 
-setupRabbitMQ().then(() => {
+function initEvents(){
     suscribeIngredientsChanges();
     rpcInventoryIngredients();
-    rpcKitchenRequests();
     rpcHistoryPurchase();
+    rpcKitchenRequests();
+}
+
+runRabbitMQ().then(() => {
+    initEvents();
+    // JOBS
     makePendingIngredientPurchases();
 })
 

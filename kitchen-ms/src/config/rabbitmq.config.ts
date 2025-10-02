@@ -9,7 +9,7 @@ import {
   FI_HISTORY_ORDERS_REQUEST_QUEUE,
   FOOD_INVENTORY_INGREDIENTS_QUEUE,
   KITCHEN_RECIPE_QUEUE,
-} from '../domain/constants/raabitmq.constants';
+} from '../core/constants/raabitmq.constants';
 
 const RABBITMQ_URL = environment.RABBITMQ_URL;
 let channel: amqp.Channel

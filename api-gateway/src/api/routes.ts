@@ -1,9 +1,9 @@
-import { getOrdersSchema, orderSchema } from "../validations/kitchen/kitchen-order.schemas";
-import { getPurchaseHistorySchema } from "../validations/inventory/inventory.schemas";
-import { Route } from "../core/interfaces/http.interface";
-import { getInventoryIngredientsController, getPurchaseHistoryController } from "../api/inventory/controller";
-import { getKitchenRecipesController, getOrdersController, kitchenOrderController } from "../api/kitchen/controller";
-import { runServerSSE } from "../api/sse/controller";
+import { getOrdersSchema, orderSchema } from "./kitchen/presentation/schemas/kitchen-order.schemas";
+import { getPurchaseHistorySchema } from "./inventory/presentation/inventory.schemas";
+import { getInventoryIngredientsController, getPurchaseHistoryController } from "src/api/inventory/presentation/inventory.controller";
+import { getKitchenRecipesController, getOrdersController, kitchenOrderController } from "src/api/kitchen/presentation/kitchen.controller";
+import { runServerSSE } from "src/api/sse/sse.controller";
+import { Route } from "src/core/interfaces/http.interface";
 
 const BASE_API = "/api/v1";
 

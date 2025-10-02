@@ -1,4 +1,4 @@
-import { environment } from "./core/config/enviroment.config";
-import { runServer } from "./core/config/http-server.config";
+import { environment } from "./config/enviroment.config";
+import { runServer } from "./config/http-server.config";
 
 runServer({ PORT: environment.PORT });

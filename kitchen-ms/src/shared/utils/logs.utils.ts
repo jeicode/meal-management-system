@@ -1,7 +1,7 @@
 export function logInfo(msg: string, ...args: any[]) {
-    console.log('[INFO]', msg, ...args);
+  console.log('[INFO]', msg, ...args);
 }
 
 export function logError(msg: string, ...args: any[]) {
-    console.error('[ERROR]', msg, ...args);
+  console.error('[ERROR]', msg, ...args);
 }

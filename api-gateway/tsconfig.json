@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
+    "typeRoots": ["node_modules/@types"],
     "outDir": "dist",
-    "target": "ES2024",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "module": "commonjs",                                /* Specify what module code is generated. */
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-    "strict": true,                                      /* Enable all strict type-checking options. */
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "rootDir": "./src",
+    "target": "ES2024",                                
+    "module": "commonjs",                                
+    "baseUrl": ".",    
+    "rootDir": "./",                                
+    "forceConsistentCasingInFileNames": true,            
+    "strict": true,                                      
   },
-  "include": ["src/**/*", "src/**/*.d.ts"]
+  "include": ["src/**/*"]
 }

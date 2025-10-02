@@ -8,7 +8,7 @@ import {
   FOOD_INVENTORY_INGREDIENTS_QUEUE, 
   PURCHASE_INGREDIENT_QUEUE,
   FI_HISTORY_ORDERS_REQUEST_QUEUE
-} from '../constants/raabitmq.constants';
+} from '../core/constants/raabitmq.constants';
 
 const RABBITMQ_URL = environment.RABBITMQ_URL;
 let channel: amqp.Channel
@@ -21,7 +21,7 @@ const QUEUES = [
   PURCHASE_INGREDIENT_QUEUE
 ];
 
-export async function setupRabbitMQ() {
+export async function runRabbitMQ() {
     try {
       const connection = await amqp.connect(RABBITMQ_URL);
       channel = await connection.createChannel();
