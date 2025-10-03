@@ -1,4 +1,4 @@
-// service.ts
+// inventory.service.ts
 import { InventoryDatasource } from "../datasources/inventory.datasource";
 
 export class InventoryService {

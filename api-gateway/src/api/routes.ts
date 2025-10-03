@@ -1,5 +1,5 @@
 import { getOrdersSchema, orderSchema } from "./kitchen/presentation/schemas/kitchen-order.schemas";
-import { getPurchaseHistorySchema } from "./inventory/presentation/inventory.schemas";
+import { getPurchaseHistorySchema } from "./inventory/presentation/schemas/inventory.schemas";
 import { getInventoryIngredientsController, getPurchaseHistoryController } from "src/api/inventory/presentation/inventory.controller";
 import { getKitchenRecipesController, getOrdersController, kitchenOrderController } from "src/api/kitchen/presentation/kitchen.controller";
 import { runServerSSE } from "src/api/sse/sse.controller";

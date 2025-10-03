@@ -1,6 +1,6 @@
 import { FoodInventoryDatasource } from "src/modules/food-inventory/domain/datasources/food-inventory.datasource";
 
-export class FoodInventoryService implements FoodInventoryDatasource {
+export class FoodInventoryService {
     constructor(protected readonly datasource: FoodInventoryDatasource) {}
     suscribeIngredientsChanges(): void {
         return this.datasource.suscribeIngredientsChanges();

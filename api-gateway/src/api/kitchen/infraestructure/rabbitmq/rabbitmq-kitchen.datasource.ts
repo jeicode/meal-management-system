@@ -6,10 +6,10 @@ import {
   KITCHEN_RECIPE_QUEUE,
 } from 'src/core/constants/raabitmq.constants';
 import { environment } from 'src/config/enviroment.config';
-import { channel } from 'src/config/rabbitmq.config';
 import { KitchenDatasource } from 'src/api/kitchen/domain/datasources/kitchen.datasource';
 import { sseClients } from 'src/api/sse/sse.controller';
 import { logError } from 'src/shared/utils/logs/logs.utils';
+import { channel } from 'src/config/rabbitmq.config';
 
 export class RabbitMQKitchenDatasource implements KitchenDatasource {
   async getRecipesFromKitchen(): Promise<Record<string, unknown>> {
