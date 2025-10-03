@@ -1,8 +1,8 @@
-import { KitchenService } from "../domain/services/kitchen.service";
-import { RabbitMQKitchenDatasource } from "../infraestructure/rabbitmq/rabbitmq-kitchen.datasource";
+import { KitchenSubscriberService } from "../domain/services/kitchen-subscriber.service";
+import { RabbitMQKitchenSubscriber } from "../infraestructure/rabbitmq/rabbitmq-kitchen-suscriber";
 
-const kichtenService = new KitchenService(new RabbitMQKitchenDatasource());
+const kitchenSuscriberService = new  KitchenSubscriberService(new RabbitMQKitchenSubscriber());
 
 export async function suscribeOrdersPendingOrPreparing() {  
-  return kichtenService.suscribeOrdersPendingOrPreparing();
+  return kitchenSuscriberService.suscribeOrdersPendingOrPreparing();
 }

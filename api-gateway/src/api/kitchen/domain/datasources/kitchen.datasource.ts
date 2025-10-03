@@ -1,6 +1,9 @@
 export abstract class KitchenDatasource {
-  abstract getRecipesFromKitchen(): Promise<Record<string, unknown>>;
-  abstract sendOrderToKitchen(message: object): Promise<Record<string, unknown>>;
-  abstract getKitchenOrders(params: Record<string, unknown>): Promise<Record<string, unknown>>;
+  abstract getRecipesFromKitchen(): Promise<Record<string, any>>;
+  abstract sendOrderToKitchen(message: object): Promise<Record<string, any>>;
+  abstract getKitchenOrders(params: Record<string, any>): Promise<Record<string, any>>;
+}
+
+export abstract class KitchenSubscriberDatasource {
   abstract suscribeOrdersPendingOrPreparing(): void
 }

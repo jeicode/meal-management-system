@@ -1,4 +1,3 @@
-// service.ts
 import { KitchenDatasource } from "src/api/kitchen/domain/datasources/kitchen.datasource";
 
 export class KitchenService {
@@ -14,9 +13,5 @@ export class KitchenService {
 
   async sendOrderToKitchen(params: { dishes: number }) {
     return await this.datasource.sendOrderToKitchen(params);
-  }
-
-  async suscribeOrdersPendingOrPreparing() {
-    return await this.datasource.suscribeOrdersPendingOrPreparing();
   }
 }
