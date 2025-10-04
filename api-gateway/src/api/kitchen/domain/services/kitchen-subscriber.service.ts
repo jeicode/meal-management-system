@@ -3,7 +3,7 @@ import { KitchenSubscriberDatasource } from "src/api/kitchen/domain/datasources/
 export class KitchenSubscriberService {
     constructor(private readonly subscriberDatasource: KitchenSubscriberDatasource) {}
   
-    async suscribeOrdersPendingOrPreparing() {
-      return this.subscriberDatasource.suscribeOrdersPendingOrPreparing();
+    async subscribeOrdersPendingOrPreparing() {
+      return this.subscriberDatasource.subscribeOrdersPendingOrPreparing();
     }
   }

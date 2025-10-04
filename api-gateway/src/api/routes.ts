@@ -30,11 +30,11 @@ export const routes: Route[] = [
     controller: getKitchenRecipesController
   },
   {
-    method: "POST",
+    method: "GET",
     path: `${BASE_API}/kitchen/orders`,
     controller: getOrdersController,
     schema: getOrdersSchema,
-    validateOn: "body"
+    validateOn: "query"
   },
 
   // ----- INVENTORY -------

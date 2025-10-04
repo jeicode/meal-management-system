@@ -22,7 +22,7 @@ export async function runServer({ PORT }: ServerOptions) {
     server = createHttpServer();
     await connectRabbitMQ();
     server.listen(PORT, () => {
-      logInfo(`✅ API Gateway escuchando en http://localhost:${PORT}`);
+      logInfo(`✅ API Gateway listening on http://localhost:${PORT}`);
     });  
     process.on('SIGINT', shutdown);
     process.on('SIGTERM', shutdown);
@@ -30,7 +30,7 @@ export async function runServer({ PORT }: ServerOptions) {
 
 
 async function shutdown() {
-    logInfo('Cerrando servidor...');
+    logInfo('Shutting down server...');
     if (server) {
       server.close();
     }

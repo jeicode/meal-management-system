@@ -1,10 +1,10 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { InventoryService } from "src/api/inventory/domain/services/inventory.service";
-import { RabbitMQInventoryDatasource } from "src/api/inventory/infraestructure/rabbitmq/rabbitmq-inventory.datasource";
+import { InventoryRpcService } from "src/api/inventory/domain/services/inventory-rpc.service";
+import { RabbitMQInventoryRpcDatasource } from "src/api/inventory/infrastructure/rabbitmq/rabbitmq-inventory-rpc";
 import { Request } from "src/core/interfaces/http.interface";
 import { handleError, sendResponse } from "src/shared/utils/http/http.utils";
 
-const inventoryService = new InventoryService(new RabbitMQInventoryDatasource());
+const inventoryService = new InventoryRpcService(new RabbitMQInventoryRpcDatasource());
 
 /**
  * 

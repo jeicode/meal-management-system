@@ -1,16 +1,15 @@
 import { describe, test, expect, vi, beforeEach, Mock } from 'vitest';
-import { InventoryService } from '../services/inventory.service';
-import { InventoryDatasource } from '../datasources/inventory.datasource';
+import { InventoryRpcService } from './inventory-rpc.service';
+import { InventoryRpcDatasource } from '../datasources/inventory.datasource';
 
 // 1. Crear la Interfaz Simulada (Mock)
-const mockDatasource: Record<keyof InventoryDatasource, Mock> = {
+const mockDatasource: Record<keyof InventoryRpcDatasource, Mock> = {
   getInventoryIngredients: vi.fn(),
   getInventoryPurchaseHistory: vi.fn(),
-  suscribeAndResponseInventoryIngredients: vi.fn(),
 };
 
 // Le inyectamos la versión simulada (mock) del datasource.
-const service = new InventoryService(mockDatasource as InventoryDatasource);
+const service = new InventoryRpcService(mockDatasource as InventoryRpcDatasource);
 
 describe('InventoryService Unit Tests (Vitest)', () => {
   // Limpiamos los mocks antes de cada prueba.
@@ -40,18 +39,5 @@ describe('InventoryService Unit Tests (Vitest)', () => {
     const result = await service.getInventoryPurchaseHistory(mockParams);
     expect(mockDatasource.getInventoryPurchaseHistory).toHaveBeenCalledWith(mockParams);
     expect(result).toEqual(mockHistory);
-  });
-  
-  // ----------------------------------------------------------------------
-  // PRUEBA 3: Flujo de suscripción
-  // ----------------------------------------------------------------------
-  test('should delegate subscription logic to the datasource', async () => {
-    const mockSubscriptionStatus = { success: true, message: "Subscribed" };
-    mockDatasource.suscribeAndResponseInventoryIngredients.mockResolvedValue(mockSubscriptionStatus);
-    const result = await service.suscribeAndResponseInventoryIngredients();
-    // 1. Verificamos que el método de suscripción fue llamado.
-    expect(mockDatasource.suscribeAndResponseInventoryIngredients).toHaveBeenCalledOnce();
-    // 2. Verificamos que el resultado es el esperado.
-    expect(result).toEqual(mockSubscriptionStatus);
   });
 });

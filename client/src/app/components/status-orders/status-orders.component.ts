@@ -33,14 +33,8 @@ export class StatusOrdersComponent implements OnInit, OnDestroy {
   }
 
   getOrdersPendingOrWaiting(){
-    const query = {
-     where:{
-      status: {
-        in: [ORDER_STATUS.PREPARING, ORDER_STATUS.WAITING_FOR_INGREDIENTS]
-      }
-     },
-     orderBy: {createdAt: 'asc'}
-    }
+    let query = `where.status.in=${ORDER_STATUS.PREPARING},${ORDER_STATUS.WAITING_FOR_INGREDIENTS}`
+    query += `&orderBy.createdAt=asc`
     this._kitchenService.getOrders(query).subscribe({
       next: (res) => {
         if(res.error) return this.errorMessage.set(res.error.message)

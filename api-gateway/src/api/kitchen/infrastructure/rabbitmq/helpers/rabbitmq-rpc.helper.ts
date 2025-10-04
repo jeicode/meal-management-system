@@ -1,7 +1,7 @@
 // src/api/kitchen/infrastructure/rabbitmq/rabbitmq-rpc.helper.ts
 import { randomUUID } from "crypto";
 import { Channel, ConsumeMessage } from "amqplib";
-import { environment } from "src/config/enviroment.config";
+import { environment } from "src/config/environment.config";
 
 export function rpcRequest<T = any>(
     channel: Channel,
@@ -9,7 +9,7 @@ export function rpcRequest<T = any>(
     message: object,
     timeoutMs: number = environment.TIMEOUT_RABBITMQ || 10000
   ): Promise<T | { error: { message: string } }> {
-    if (!channel) throw new Error("RabbitMQ no inicializado");
+    if (!channel) throw new Error("RabbitMQ not initialized");
   
     return new Promise((resolve) => {
       const correlationId = randomUUID();
@@ -24,7 +24,7 @@ export function rpcRequest<T = any>(
   
           const timeout = setTimeout(() => {
             channel.deleteQueue(replyQueue);
-            resolve({ error: { message: "Tiempo de espera excedido" } });
+            resolve({ error: { message: "Timeout exceeded" } });
           }, timeoutMs);
   
           channel.consume(

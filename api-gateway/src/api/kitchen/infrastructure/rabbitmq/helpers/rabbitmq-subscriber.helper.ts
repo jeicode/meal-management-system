@@ -1,4 +1,3 @@
-// rabbitmq-subscribe.helper.ts
 import { Channel, ConsumeMessage } from "amqplib";
 
 export async function subscribeQueue(
@@ -7,7 +6,7 @@ export async function subscribeQueue(
   onMessage: (msg: ConsumeMessage, ack: () => void, nack: () => void) => void,
   options: { prefetch?: number; noAck?: boolean } = {}
 ): Promise<string> {
-  if (!channel) throw new Error("RabbitMQ no inicializado");
+  if (!channel) throw new Error("RabbitMQ no initialized");
 
   if (options.prefetch) {
     await channel.prefetch(options.prefetch);

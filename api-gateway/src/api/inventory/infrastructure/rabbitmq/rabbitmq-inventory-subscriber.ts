@@ -1,29 +1,15 @@
 import { channel } from 'src/config/rabbitmq.config';
 import {
-  GetInventoryPurchaseHistoryParams,
-  InventoryDatasource,
+  InventorySubscriberDatasource,
 } from 'src/api/inventory/domain/datasources/inventory.datasource';
 import {
   INVENTORY_INGREDIENTS_CHANGE_QUEUE,
-  INVENTORY_INGREDIENTS_QUEUE,
-  INVENTORY_PURCHASE_HISTORY_QUEUE,
-} from 'src/core/constants/raabitmq.constants';
+} from 'src/core/constants/rabbitmq.constants';
 import { sseClients } from 'src/api/sse/sse.controller';
 import { logError } from 'src/shared/utils/logs/logs.utils';
-import { rpcRequest } from './helpers/rabbitmq-rpc.helper';
 
-export class RabbitMQInventoryDatasource implements InventoryDatasource {
-  async getInventoryIngredients(): Promise<Record<string, unknown>> {
-    return rpcRequest(channel!, INVENTORY_INGREDIENTS_QUEUE, {});
-  }
-
-  async getInventoryPurchaseHistory(
-    params: GetInventoryPurchaseHistoryParams,
-  ): Promise<Record<string, unknown>> {
-    return rpcRequest(channel!, INVENTORY_PURCHASE_HISTORY_QUEUE, params);
-  }
-
-  async suscribeAndResponseInventoryIngredients() {
+export class RabbitMQInventorySubscriber implements InventorySubscriberDatasource {
+  async subscribeAndResponseInventoryIngredients() {
     if (!channel) throw new Error('RabbitMQ no inicializado');
     try {
       const { consumerTag } = await channel.consume(

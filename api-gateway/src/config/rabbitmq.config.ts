@@ -1,5 +1,5 @@
 import amqp, { Channel, ChannelModel } from 'amqplib';
-import { environment } from './enviroment.config';
+import { environment } from './environment.config';
 import { logError, logInfo } from '../shared/utils/logs/logs.utils';
 import {
   INVENTORY_INGREDIENTS_CHANGE_QUEUE,
@@ -10,9 +10,9 @@ import {
   KITCHEN_ORDERS_DELIVERED_QUEUE,
   KITCHEN_RECIPE_QUEUE,
   INVENTORY_PURCHASE_HISTORY_QUEUE
-} from '../core/constants/raabitmq.constants';
-import { suscribeAndResponseInventoryIngredients } from '../api/inventory/presentation/inventory.events';
-import { suscribeOrdersPendingOrPreparing } from '../api/kitchen/presentation/kitchen.events';
+} from '../core/constants/rabbitmq.constants';
+import { subscribeAndResponseInventoryIngredients } from '../api/inventory/presentation/inventory.events';
+import { subscribeOrdersPendingOrPreparing } from '../api/kitchen/presentation/kitchen.events';
 
 
 const RABBITMQ_URL = environment.RABBITMQ_URL;
@@ -42,8 +42,8 @@ export async function connectRabbitMQ(retries = 5) {
     logInfo('✅ Conectado a RabbitMQ');
 
     // Suscribimos consumidores
-    await suscribeAndResponseInventoryIngredients();
-    await suscribeOrdersPendingOrPreparing();
+    await subscribeAndResponseInventoryIngredients();
+    await subscribeOrdersPendingOrPreparing();
 
     // Listeners para reconexión
     connection.on('close', () => {

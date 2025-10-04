@@ -19,8 +19,4 @@ import { KitchenService } from '../../shared/apis/kitchen.service';
 })
 export class HomeComponent  {
   _kitchenService = inject(KitchenService);
-
-  ngOnInit(): void {
-    const orders = ''
-  }
 }

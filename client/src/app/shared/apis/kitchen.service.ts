@@ -39,9 +39,9 @@ export class KitchenService {
     )
   }
 
-  getOrders(body:Record<string, any> = {}): Observable<any> {
-    const url = `${environment.API_URL}/v1/kitchen/orders`
-    return this._http.post<any>(url, body).pipe(
+  getOrders(query:string = ''): Observable<any> {
+    const url = `${environment.API_URL}/v1/kitchen/orders?${query}`
+    return this._http.get<any>(url).pipe(
       timeout({
         each: 20000,
         with: () => throwError(() => TIMEOUT_ERROR)

@@ -1,7 +1,7 @@
-import { KitchenDatasource } from "src/api/kitchen/domain/datasources/kitchen.datasource";
+import { KitchenRpcDatasource } from "src/api/kitchen/domain/datasources/kitchen.datasource";
 
-export class KitchenService {
-  constructor(private readonly datasource: KitchenDatasource) {}
+export class KitchenRpcService {
+  constructor(private readonly datasource: KitchenRpcDatasource) {}
 
   async getKitchenOrders(params: { take: number; skip: number; where: unknown; orderBy: unknown }) {
     return await this.datasource.getKitchenOrders(params);

@@ -2,14 +2,14 @@ import { handleError } from 'src/shared/utils/http/http.utils';
 import { sendResponse } from 'src/shared/utils/http/http.utils';
 import { IncomingMessage, ServerResponse } from 'http';
 import { Request } from 'src/core/interfaces/http.interface';
-import { KitchenService } from 'src/api/kitchen/domain/services/kitchen.service';
-import { RabbitMQKitchenDatasource } from 'src/api/kitchen/infraestructure/rabbitmq/rabbitmq-kitchen.datasource';
+import { KitchenRpcService } from 'src/api/kitchen/domain/services/kitchen-rpc.service';
+import { RabbitMQKitchenRpc } from 'src/api/kitchen/infrastructure/rabbitmq/rabbitmq-kitchen-rpc';
 
-const kitchenService = new KitchenService(new RabbitMQKitchenDatasource());
+const kitchenService = new KitchenRpcService(new RabbitMQKitchenRpc());
 
 export async function getOrdersController(req: Request, res: ServerResponse) {
     try {
-        const { take = 15, skip = 0, where, orderBy } = req.body;
+        const { take = 15, skip = 0, where, orderBy } = req.query;
         const data = await kitchenService.getKitchenOrders({ take: Number(take), skip: Number(skip), where, orderBy });
         sendResponse({res, status: 200, data: {data}});
     } catch (err) {
@@ -25,6 +25,7 @@ export async function getOrdersController(req: Request, res: ServerResponse) {
 export async function kitchenOrderController(req: Request, res: ServerResponse) {
     try {
         const { dishes } = req.query;
+
         const result = await kitchenService.sendOrderToKitchen({ dishes: Number(dishes) });
         if (result.error) return sendResponse({res, status: 500, data: result});
         sendResponse({res, status: 200, data: result});

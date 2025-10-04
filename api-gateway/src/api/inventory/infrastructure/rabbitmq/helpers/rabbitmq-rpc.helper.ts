@@ -1,7 +1,7 @@
 // src/api/kitchen/infrastructure/rabbitmq/rabbitmq-rpc.helper.ts
 import { randomUUID } from "crypto";
 import { Channel, ConsumeMessage } from "amqplib";
-import { environment } from "src/config/enviroment.config";
+import { environment } from "src/config/environment.config";
 
 export function rpcRequest<T = any>(
     channel: Channel,

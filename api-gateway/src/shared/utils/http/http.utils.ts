@@ -55,33 +55,43 @@ export function addSecurityHeaders(res: ServerResponse) {
 }
 
 export function parseQueryToObject(query: Record<string, unknown>): Record<string, unknown> {
-  const parsedQuery: Record<string, unknown> = {};
+  const parsedQuery: Record<string, any> = {};
+
+  const toProperType = (val: string) => {
+    if (/^\d+(\.\d+)?$/.test(val)) return Number(val); // convierte números
+    return val;
+  };
+
   for (const key in query) {
-    if (Object.prototype.hasOwnProperty.call(query, key)) {
-      const value = query[key];
-      if (typeof value !== 'string') {
-        parsedQuery[key] = value;
-        continue;
-      }
-      const [mainKey, subKey] = key.split('.');
-      if (subKey == 'in') {
-        parsedQuery[mainKey] = {
-          [subKey]: value.split(',').map(item => item.trim()),
-        };
-      } else {
-        if (subKey) {
-          parsedQuery[mainKey] = {
-            [subKey]: value,
-          };
+    if (!Object.prototype.hasOwnProperty.call(query, key)) continue;
+    const value = query[key];
+    const keys = key.split('.');
+
+    let current = parsedQuery;
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i];
+
+      if (i === keys.length - 1) {
+        // última clave
+        if (k === 'in' && typeof value === 'string') {
+          current[k] = value.split(',').map(v => toProperType(v.trim()));
+        } else if (typeof value === 'string') {
+          current[k] = toProperType(value.trim());
         } else {
-          parsedQuery[mainKey] = value;
+          current[k] = value;
         }
+      } else {
+        if (!current[k] || typeof current[k] !== 'object') {
+          current[k] = {};
+        }
+        current = current[k];
       }
     }
   }
 
   return parsedQuery;
 }
+
 
 type AddRoutesParams = {
   routes: Route[];

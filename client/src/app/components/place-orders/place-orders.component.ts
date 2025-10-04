@@ -59,13 +59,9 @@ export class PlaceOrdersComponent implements OnInit {
   }
 
   getOrdersDelivered(){
-    const query = {
-      where: {
-        status: ORDER_STATUS.DELIVERED
-      },
-      orderBy: {createdAt: 'desc'},
-      take: 4
-    }
+    let query = `where.status=${ORDER_STATUS.DELIVERED}`
+    query += `&orderBy.createdAt=desc`
+    query += `&take=4`
     this._kitchenService.getOrders(query).subscribe({
       next: (res) => {
         if(res.error) return this.errorMessage.set(res.error.message)

@@ -1,20 +1,20 @@
 // service.test.ts
 import { describe, it, expect, vi, beforeEach, Mocked } from "vitest";
-import { KitchenDatasource } from "src/api/kitchen/domain/datasources/kitchen.datasource";
-import { KitchenService } from "./kitchen.service";
+import { KitchenRpcDatasource } from "src/api/kitchen/domain/datasources/kitchen.datasource";
+import { KitchenRpcService } from "./kitchen-rpc.service";
 
 describe("KitchenService", () => {
-  let datasourceMock: Mocked<KitchenDatasource>;
-  let service: KitchenService;
+  let datasourceMock: Mocked<KitchenRpcDatasource>;
+  let service: KitchenRpcService;
 
   beforeEach(() => {
     datasourceMock = {
       getKitchenOrders: vi.fn(),
       getRecipesFromKitchen: vi.fn(),
       sendOrderToKitchen: vi.fn(),
-    } as unknown as Mocked<KitchenDatasource>;
+    } as unknown as Mocked<KitchenRpcDatasource>;
 
-    service = new KitchenService(datasourceMock);
+    service = new KitchenRpcService(datasourceMock);
   });
 
   it("debería obtener kitchen orders desde el datasource", async () => {

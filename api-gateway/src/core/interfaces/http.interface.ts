@@ -12,6 +12,6 @@ export interface Route {
   path: string;
   isSSE?: boolean;
   controller: (req: Request, res: ServerResponse) => Promise<void> | void;
-  schema?: AnyObject; // Yup schema opcional
+  schema?: AnyObject; // Yup schema
   validateOn?: "body" | "query";
 };
