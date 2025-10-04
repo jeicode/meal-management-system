@@ -1,5 +1,5 @@
 import { createClient, RealtimePostgresChangesFilter } from '@supabase/supabase-js'
-import { environment } from './enviroment.config'
+import { environment } from './environment.config'
 
 export const supabase = createClient(
   environment.SUPABASE_URL,

@@ -1,5 +1,5 @@
 import { createClient, RealtimePostgresChangesFilter } from '@supabase/supabase-js'
-import { environment } from './enviroment.config'
+import { environment } from './environment.config'
 
 export const supabase = createClient(
   environment.SUPABASE_URL,
@@ -7,8 +7,8 @@ export const supabase = createClient(
 )
 
 export const dbChannel = supabase.channel('schema-db-changes')
-export const orderHistoryTableChangeFilter: RealtimePostgresChangesFilter<any> = { 
-  event: '*', 
-  schema: 'public', 
-  table: 'OrderHistory' 
+export const orderHistoryTableChangeFilter: RealtimePostgresChangesFilter<any> = {
+  event: '*',
+  schema: 'public',
+  table: 'OrderHistory'
 }

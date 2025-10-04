@@ -4,4 +4,3 @@ export const INVENTORY_INGREDIENTS_QUEUE = 'inventory_ingredients';
 export const INVENTORY_INGREDIENTS_CHANGE_QUEUE = 'inventory_ingredients_change';
 export const INVENTORY_PURCHASE_HISTORY_QUEUE = 'inventory_purchase_history';
 export const PURCHASE_INGREDIENT_QUEUE = 'purchase_ingredient';
-

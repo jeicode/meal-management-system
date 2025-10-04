@@ -1,5 +1,5 @@
 import amqp from 'amqplib';
-import { environment } from './enviroment.config';
+import { environment } from './environment.config';
 import { logInfo } from '../shared/utils/logs.utils';
 import {
   KITCHEN_ORDERS_QUEUE,
@@ -9,7 +9,7 @@ import {
   FI_HISTORY_ORDERS_REQUEST_QUEUE,
   FOOD_INVENTORY_INGREDIENTS_QUEUE,
   KITCHEN_RECIPE_QUEUE,
-} from '../core/constants/raabitmq.constants';
+} from '../core/constants/rabbitmq.constants';
 
 const RABBITMQ_URL = environment.RABBITMQ_URL;
 let channel: amqp.Channel

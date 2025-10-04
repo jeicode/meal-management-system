@@ -4,7 +4,7 @@ import { channel } from 'src/config/rabbitmq.config';
 import {
   FI_HISTORY_ORDERS_REQUEST_QUEUE,
   FOOD_INVENTORY_INGREDIENTS_QUEUE,
-} from 'src/core/constants/raabitmq.constants';
+} from 'src/core/constants/rabbitmq.constants';
 import { logError } from 'src/shared/utils/logs.utils';
 import { handleError } from 'src/shared/utils/general.utils';
 import { randomUUID } from 'crypto';

@@ -4,7 +4,7 @@ import { channel } from 'src/config/rabbitmq.config';
 import {
   KITCHEN_ORDERS_PENDING_QUEUE,
   KITCHEN_ORDERS_QUEUE,
-} from 'src/core/constants/raabitmq.constants';
+} from 'src/core/constants/rabbitmq.constants';
 import { logError } from 'src/shared/utils/logs.utils';
 import { processKitchenOrders } from '../../../kitchen/domain/services/process-orders.service';
 
@@ -43,6 +43,6 @@ export class RabbitMQApiGatewayDatasource implements ApiGatewayDatasource {
     } catch (err: unknown) {
       logError('❌ consumeApiGatewayOrders', (err as Error).message);
     }
-  } 
-  
+  }
+
 }

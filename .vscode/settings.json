@@ -1,18 +1,24 @@
 {
-    "cSpell.ignoreWords": [
-        "RabbitMQ",
-        "RPC",
-        "SSE",
-        "API Gateway",
-        "Kitchen",
-        "Inventory",
-        "Orders",
-        "Food Inventory",
-        "Kitchen",
-        "Inventory",
-        "Orders",
-        "Food Inventory",
-        "Datasource",
-        "datasources"
-    ]
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "cSpell.ignoreWords": [
+    "RabbitMQ",
+    "RPC",
+    "SSE",
+    "API Gateway",
+    "Kitchen",
+    "Inventory",
+    "Orders",
+    "Food Inventory",
+    "Kitchen",
+    "Inventory",
+    "Orders",
+    "Food Inventory",
+    "Datasource",
+    "datasources",
+    "SUPABASE"
+  ]
 }

@@ -5,7 +5,7 @@ import { RealtimeChannel } from '@supabase/supabase-js';
 import { orderHistoryTableChangeFilter } from 'src/config/db-changes.config';
 import { logError } from 'src/shared/utils/logs.utils';
 import { Channel } from 'amqplib';
-import { KITCHEN_ORDERS_QUEUE } from 'src/core/constants/raabitmq.constants';
+import { KITCHEN_ORDERS_QUEUE } from 'src/core/constants/rabbitmq.constants';
 
 const ordersService = new OrdersService(new RabbitOrdersDatasource());
 
@@ -17,10 +17,10 @@ export async function rpcOrdersPendingOrPreparing(dbChannel: RealtimeChannel) {
       })
       .subscribe();
   } catch (error: unknown) {
-      logError(
-        '❌ Error subscribing to database changes: rpcOrdersPendingOrPreparing',
-        (error as Error).message,
-      );
+    logError(
+      '❌ Error subscribing to database changes: rpcOrdersPendingOrPreparing',
+      (error as Error).message,
+    );
   }
 }
 

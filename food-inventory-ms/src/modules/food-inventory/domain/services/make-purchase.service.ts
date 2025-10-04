@@ -1,5 +1,5 @@
 import { logError } from "src/shared/utils/logs.utils";
-import { RabbitMQOrderDatasource } from "src/modules/orders/infraestructure/rabbitmq/rabbitmq-order.datasource";
+import { RabbitMQOrderDatasource } from "src/modules/orders/infrastructure/rabbitmq/rabbitmq-order.datasource";
 import { OrderService } from "src/modules/orders/domain/services/orders.service";
 import { createPurchaseHistory, incrementIngredientQuantity } from "src/modules/food-inventory/domain/repositories/food-inventory.repository";
 

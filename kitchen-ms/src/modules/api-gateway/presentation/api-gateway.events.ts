@@ -1,5 +1,5 @@
 import { logError } from "../../../shared/utils/logs.utils";
-import { RabbitMQApiGatewayDatasource } from "../infraestructure/rabbitmq/rabbitmq-api-gateway.datasource";
+import { RabbitMQApiGatewayDatasource } from "../infrastructure/rabbitmq/rabbitmq-api-gateway.datasource";
 import { ApiGatewayService } from "../domain/services/api-gateway.service";
 
 const apiGatewayService = new ApiGatewayService(new RabbitMQApiGatewayDatasource());
