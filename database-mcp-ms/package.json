@@ -1,41 +1,42 @@
 {
-  "name": "api-gateway-ms",
+  "name": "kitchen-ms",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "lint": "eslint . --ext .ts,.tsx,.js --max-warnings 0",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js --fix --cache",
-    "format": "prettier --write .",
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "test": "vitest run --reporter verbose",
-    "coverage": "vitest run --coverage"
+    "test": "vitest",
+    "generate": "npx prisma generate",
+    "migrate:dev": "npx prisma migrate dev",
+    "migrate:prod": "npx prisma migrate deploy",
+    "start": "node dist/src/index.js"
   },
   "keywords": [],
   "author": "jeicode",
   "license": "ISC",
-  "packageManager": "pnpm@10.18.0",
+  "packageManager": "pnpm@10.9.0",
   "devDependencies": {
     "@eslint/js": "9.36.0",
     "@types/amqplib": "^0.10.7",
+    "@types/express": "^5.0.3",
     "@types/node": "22.14.0",
     "@types/supertest": "6.0.3",
     "dotenv": "^16.4.7",
     "eslint": "9.36.0",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.6.2",
-    "supertest": "7.1.0",
-    "tsx": "4.19.3",
+    "supertest": "7.1.4",
+    "tsx": "4.20.6",
     "typescript": "5.8.3",
     "typescript-eslint": "8.45.0",
-    "vitest": "3.1.1"
+    "vitest": "3.1.4"
   },
   "dependencies": {
-    "@google/genai": "1.22.0",
-    "amqplib": "0.10.7",
+    "@modelcontextprotocol/sdk": "1.19.1",
+    "@supabase/supabase-js": "2.49.4",
     "env-var": "7.5.0",
-    "yup": "1.6.1"
+    "express": "5.1.0",
+    "zod": "4.1.11"
   }
 }

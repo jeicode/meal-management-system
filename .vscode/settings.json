@@ -7,6 +7,7 @@
   "cSpell.ignoreWords": [
     "RabbitMQ",
     "RPC",
+    "genai",
     "SSE",
     "API Gateway",
     "Kitchen",
@@ -19,6 +20,12 @@
     "Food Inventory",
     "Datasource",
     "datasources",
-    "SUPABASE"
-  ]
+    "modelcontextprotocol",
+    "SUPABASE",
+    "supabase",
+    "Supabase",
+    "Streamable",
+    "streamable"
+  ],
+  "cSpell.language": "en,es-ES,en-US"
 }
