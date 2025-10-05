@@ -1,54 +1,68 @@
-import { mcpServer, supabase } from "../supabase-mcp-server";
+import { z } from 'zod';
+import { mcpServer, supabase } from '../supabase-mcp-server';
 
 export function createRecipeTool() {
-    // 🧩 Tool #2: Crear receta
-    mcpServer.tool(
-        "create_recipe",
-        {
-            title: "Crear nueva receta",
-            description: "Inserta una nueva receta en la tabla 'recipes'.",
-        },
-        async (args) => {
-            const { name } = args;
+  mcpServer.registerTool(
+    'Crear receta',
+    {
+      title: 'Crear receta',
+      description: 'Crear nueva receta en la base de datos',
+      inputSchema: { name: z.string() },
+    },
 
-            if (!name) throw new Error("Faltan parámetros: 'name'");
+    async ({ name }) => {
+      // Validación adicional
+      if (!name.trim()) {
+        throw new Error("El parámetro 'name' es requerido");
+      }
+      try {
+        const { data, error } = await supabase
+          .from('Recipe')
+          .insert([{ name: name.trim() }])
+          .select(); // Agregado para obtener los datos insertados
 
-            const { data, error } = await supabase
-                .from("Recipe")
-                .insert([{ name }])
-                .select("*");
-
-            if (error) throw new Error(error.message);
-
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: `Receta creada: ${JSON.stringify(data, null, 2)}`,
-                    },
-                ],
-                structuredContent: { data },
-            };
+        if (error) {
+          throw new Error(`Error al crear la receta: ${error.message}`);
         }
-    );
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `✅ Receta creada exitosamente:\n${JSON.stringify(data, null, 2)}`,
+            },
+          ],
+        };
+      } catch (err: any) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `❌ Error al crear la receta: ${err?.message}`,
+            },
+          ],
+          isError: true,
+        };
+      }
+    },
+  );
 }
 
-
 export function listRecipesTool() {
-    mcpServer.tool(
-        "list-recipes",
-        {
-            title: "Lista de recetas",
-            description: "Obtener todas las recetas de la base de datos.",
-        },
-        async () => {
-            const { data, error } = await supabase.from("Recipe").select("*");
-            if (error) throw new Error(error.message);
+  mcpServer.registerTool(
+    'Lista de recetas',
+    {
+      title: 'Lista de recetas',
+      description: 'Obtener todas las recetas de la base de datos',
+    },
+    async () => {
+      const { data, error } = await supabase.from('Recipe').select('*');
+      if (error) throw new Error(error.message);
 
-            return {
-                content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
-                structuredContent: { data },
-            };
-        }
-    );
+      return {
+        content: [{ type: 'text', text: JSON.stringify(data, null, 2) }],
+        structuredContent: { data },
+      };
+    },
+  );
 }

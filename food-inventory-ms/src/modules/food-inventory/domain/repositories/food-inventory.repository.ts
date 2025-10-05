@@ -5,6 +5,7 @@ import { handleError } from "src/shared/utils/general.utils";
 import { IOrderHistory } from "src/core/interfaces/order-history.interface";
 import { PurchaseHistoryCreate } from "src/core/interfaces/purchase-history.interface";
 import { retry } from "src/shared/utils/db/db.utils";
+import { aggregateIngredientConsumption, calculateInventoryChanges, determineRecipeStatus, enrichRecipeIngredients, fetchIngredientsByIds, updateInventoryInTransaction } from "../../utils/food-inventory.utils";
 
 
 type UpdateIngredientQuantityParams = {
@@ -52,53 +53,59 @@ type UpdateInventoryFromOrdersParams = {
     order: IOrderHistory | any
 }
 
-export async function updateInventoryFromRecipesRequest({ order }: UpdateInventoryFromOrdersParams): Promise<any> {
+export async function updateInventoryFromRecipesRequest({ 
+    order 
+}: UpdateInventoryFromOrdersParams): Promise<any> {
     try {
-        const ingredientsPendingPurchase: Record<string, any> = {};
-        const recipesData: any[] = [];
-        for (const recipe of order.listRecipes) {
-            const recipeIngredients = recipe.ingredients;
-            for (const ing of recipeIngredients) {
-                const ingredientInventory = await retry(() => orm.ingredient.findUnique({ where: { id: ing.ingredientId } }));
-                if (!ingredientInventory) {
-                    logError(`Ingrediente con #ID ${ing.ingredientId} no encontrado`);
-                    continue;
-                }
+        // 1. Agregar todos los ingredientes necesarios
+        const consumption = aggregateIngredientConsumption(order.listRecipes);
+        const ingredientIds = Array.from(consumption.keys());
 
-                const quantity_available = ingredientInventory.quantity_available;
-                ing.ingredientName = ingredientInventory.name;
-                ing.missingAmount = 0;
-                const remainingQuantity = quantity_available - ing.quantity;
-                if (remainingQuantity < 0) ing.missingAmount = Math.abs(remainingQuantity);
+        // 2. Obtener todos los ingredientes en UNA sola consulta
+        const ingredientsData = await fetchIngredientsByIds(ingredientIds);
 
-                if (ingredientsPendingPurchase[ing.ingredientName]) {
-                    ingredientsPendingPurchase[ing.ingredientName] += ing.quantity;
-                    if (quantity_available > 0) {
-                        await updateIngredientQuantity({ id: ing.ingredientId, quantity: Math.max(0, remainingQuantity) });
-                    }
-                    continue;
-                }
-
-                if (ing.missingAmount > 0) {
-                    ingredientsPendingPurchase[ing.ingredientName] = ing.missingAmount;
-                }
-                if (quantity_available > 0) {
-                    await updateIngredientQuantity({ id: ing.ingredientId, quantity: Math.max(0, remainingQuantity) });
-                }
+        // Validar ingredientes faltantes
+        const foundIds = new Set(ingredientsData.map(ing => ing.id));
+        for (const id of ingredientIds) {
+            if (!foundIds.has(id)) {
+                logError(`Ingrediente con #ID ${id} no encontrado`);
             }
-
-            recipe.status = Object.keys(ingredientsPendingPurchase).length > 0 ?
-                RECIPE_STATUS.WAITING_FOR_INGREDIENTS :
-                RECIPE_STATUS.DELIVERED;
-            recipesData.push(recipe);
         }
 
+        // 3. Calcular qué ingredientes faltan y qué actualizar
+        const { updates, pendingPurchase, ingredientMap } = calculateInventoryChanges(
+            ingredientsData,
+            consumption
+        );
 
-        return { recipesData, ingredientsPendingPurchase };
+        // 4. Actualizar inventario en UNA transacción con row-level locking
+        if (updates.length > 0) {
+            await updateInventoryInTransaction(updates);
+        }
+
+        // 5. Enriquecer las recetas con información de ingredientes
+        const enrichedRecipes = enrichRecipeIngredients(
+            order.listRecipes,
+            ingredientMap,
+            consumption
+        );
+
+        // 6. Determinar el estado de cada receta
+        const recipesData = enrichedRecipes.map(recipe => ({
+            ...recipe,
+            status: determineRecipeStatus(recipe, pendingPurchase)
+        }));
+
+        return { 
+            recipesData, 
+            ingredientsPendingPurchase: pendingPurchase 
+        };
+
     } catch (error: any) {
         return handleError(error);
     }
 }
+
 
 
 export async function getInventoryIngredients() {

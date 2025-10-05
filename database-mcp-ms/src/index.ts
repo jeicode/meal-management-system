@@ -1,4 +1,4 @@
-import { SupabaseMcpServer } from "./supabase-mcp-server";
+import { supabase, SupabaseMcpServer } from "./supabase-mcp-server";
 
-new SupabaseMcpServer().start()
-
+const server = new SupabaseMcpServer();
+server.start();

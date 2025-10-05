@@ -17,6 +17,7 @@ enum OrderStatus {
 model Recipe {
   id        Int       @id @default(autoincrement())
   name      String    @unique @db.VarChar(255)
+  imageUrl  String?   @db.VarChar(900)
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt()
 }

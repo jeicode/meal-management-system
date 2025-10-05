@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "npx -y @modelcontextprotocol/inspector tsx src/index.ts",
     "build": "tsc",
     "test": "vitest",
     "generate": "npx prisma generate",
@@ -15,28 +15,28 @@
   "keywords": [],
   "author": "jeicode",
   "license": "ISC",
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.18.0",
   "devDependencies": {
-    "@eslint/js": "9.36.0",
+    "@eslint/js": "9.37.0",
     "@types/amqplib": "^0.10.7",
     "@types/express": "^5.0.3",
-    "@types/node": "22.14.0",
+    "@types/node": "24.6.2",
     "@types/supertest": "6.0.3",
-    "dotenv": "^16.4.7",
-    "eslint": "9.36.0",
+    "dotenv": "17.2.3",
+    "eslint": "9.37.0",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.6.2",
     "supertest": "7.1.4",
     "tsx": "4.20.6",
-    "typescript": "5.8.3",
+    "typescript": "5.9.3",
     "typescript-eslint": "8.45.0",
-    "vitest": "3.1.4"
+    "vitest": "3.2.4"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.19.1",
-    "@supabase/supabase-js": "2.49.4",
+    "@supabase/supabase-js": "2.58.0",
     "env-var": "7.5.0",
     "express": "5.1.0",
-    "zod": "4.1.11"
+    "zod": "3.23.8"
   }
 }

@@ -32,7 +32,10 @@ export class RabbitMQApiGatewayDatasource implements ApiGatewayDatasource {
         async msg => {
           if (msg !== null) {
             const data = JSON.parse(msg.content.toString());
-            const response = await processKitchenOrders({ orders: Number(data.dishes), channel });
+            const response = await processKitchenOrders({
+              orders: Number(data.dishes),
+              presetRecipesIds: data.presetRecipesIds,
+            });
             channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(response)), {
               correlationId: msg.properties.correlationId,
             });
@@ -44,5 +47,4 @@ export class RabbitMQApiGatewayDatasource implements ApiGatewayDatasource {
       logError('❌ consumeApiGatewayOrders', (err as Error).message);
     }
   }
-
 }

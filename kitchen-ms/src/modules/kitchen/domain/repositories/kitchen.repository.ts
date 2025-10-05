@@ -1,10 +1,17 @@
-import { orm } from "src/config/orm.config"
+import { Prisma } from 'prisma/prisma-client';
+import { orm } from 'src/config/orm.config';
 
-export async function getRecipes() {
-    return await orm.recipe.findMany()
+type paramGetRecipes = {
+  where: Prisma.RecipeWhereInput;
+};
+export async function getRecipes(params?: paramGetRecipes) {
+  if (!params) return await orm.recipe.findMany();
+  return await orm.recipe.findMany(params);
 }
 
-
-export async function getRecipeIngredients({where}: {where: any}) {
-    return await orm.recipeIngredient.findMany({where});
+type paramGetRecipeIngredients = {
+  where: Prisma.RecipeIngredientWhereInput;
+};
+export async function getRecipeIngredients(params: paramGetRecipeIngredients) {
+  return await orm.recipeIngredient.findMany(params);
 }

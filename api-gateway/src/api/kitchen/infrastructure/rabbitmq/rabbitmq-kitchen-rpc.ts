@@ -3,7 +3,10 @@ import {
   KITCHEN_ORDERS_QUEUE,
   KITCHEN_RECIPE_QUEUE,
 } from 'src/core/constants/rabbitmq.constants';
-import { KitchenRpcDatasource } from 'src/api/kitchen/domain/datasources/kitchen.datasource';
+import {
+  KitchenRpcDatasource,
+  paramsSendOrderToKitchen,
+} from 'src/api/kitchen/domain/datasources/kitchen.datasource';
 import { channel } from 'src/config/rabbitmq.config';
 import { rpcRequest } from './helpers/rabbitmq-rpc.helper';
 
@@ -12,7 +15,7 @@ export class RabbitMQKitchenRpc implements KitchenRpcDatasource {
     return rpcRequest(channel!, KITCHEN_RECIPE_QUEUE, {});
   }
 
-  async sendOrderToKitchen(message: object): Promise<Record<string, any>> {
+  async sendOrderToKitchen(message: paramsSendOrderToKitchen): Promise<Record<string, any>> {
     return rpcRequest(channel!, KITCHEN_ORDERS_QUEUE, message);
   }
 

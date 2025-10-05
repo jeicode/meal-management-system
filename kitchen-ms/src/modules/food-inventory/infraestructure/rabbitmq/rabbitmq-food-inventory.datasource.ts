@@ -46,10 +46,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
       logError('❌ consumeFoodInventoryHistoryRequest', (err as Error).message);
     }
   }
-  requestIngredientsToInventory({
-    order,
-    channel,
-  }: RequestIngredientsToInventoryParams): Promise<any> {
+  requestIngredientsToInventory({ order }: RequestIngredientsToInventoryParams): Promise<any> {
     return new Promise(resolve => {
       const correlationId = randomUUID();
       channel.assertQueue('', { exclusive: true }).then(({ queue: randomQueue }) => {
