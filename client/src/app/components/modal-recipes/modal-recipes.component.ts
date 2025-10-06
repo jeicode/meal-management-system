@@ -29,7 +29,6 @@ export class ModalRecipesComponent {
   }
 
   getRecipes() {
-    console.log('getRecipes');
     this.inventoryService.getIngredients().subscribe({
       next: ({ data: _ingredients }) => {
         const ingredients = _ingredients.reduce((acc: any, ingredient: any) => {
@@ -62,7 +61,7 @@ export class ModalRecipesComponent {
         });
       },
       error: (err) => {
-        console.log(err);
+        console.error(err);
       },
     });
   }

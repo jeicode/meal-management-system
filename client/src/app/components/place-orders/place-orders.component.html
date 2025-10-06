@@ -12,6 +12,7 @@
       </h2>
       <!-- (click)="openRecipesModal()" -->
       <button
+        (click)="modalRecipesService.open.set(true)"
         class="cursor-pointer py-2 px-4 rounded-lg text-sm bg-blue-500/80 text-white hover:bg-blue-600/80 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
       >
         <svg

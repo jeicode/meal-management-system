@@ -61,7 +61,7 @@ export class PlaceOrdersComponent implements OnInit {
     this.isLoadingOrdersDelivered.set(true);
     let query = `where.status=${ORDER_STATUS.DELIVERED}`;
     query += `&orderBy.createdAt=desc`;
-    query += `&take=4`;
+    query += `&take=3`;
     this._kitchenService.getOrders(query).subscribe({
       next: (res) => {
         if (res.error) return this.errorMessage.set(res.error.message);
@@ -71,7 +71,6 @@ export class PlaceOrdersComponent implements OnInit {
             totalIngredients: this.getTotalIngredientsUsedFromOrder(order),
           };
         });
-        console.log(res.data);
         this.ordersDelivered.set(res.data);
       },
       error: (err) => {

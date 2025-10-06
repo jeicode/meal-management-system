@@ -54,17 +54,12 @@
       <button
         class="text-xs bg-gray-800/70 hover:bg-gray-700/70 border border-gray-700 hover:border-blue-500/50 text-gray-400 hover:text-blue-300 px-3 py-2 rounded-lg transition-all duration-200"
       >
-        Crear una orden de compra
+        Creame 5 platos vegetarianos y 2 platos con carne
       </button>
       <button
         class="text-xs bg-gray-800/70 hover:bg-gray-700/70 border border-gray-700 hover:border-blue-500/50 text-gray-400 hover:text-blue-300 px-3 py-2 rounded-lg transition-all duration-200"
       >
-        Generar una tarea repetitiva
-      </button>
-      <button
-        class="text-xs bg-gray-800/70 hover:bg-gray-700/70 border border-gray-700 hover:border-blue-500/50 text-gray-400 hover:text-blue-300 px-3 py-2 rounded-lg transition-all duration-200"
-      >
-        Necesito un proceso de aprobación
+        Generame los platos posibles con los ingredientes disponibles
       </button>
     </div>
   </div>
@@ -73,44 +68,54 @@
     <div
       class="flex-1 overflow-y-auto space-y-4 pr-1 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800"
     >
-      <div class="flex justify-end">
-        <div
-          class="bg-blue-600/30 border border-blue-500/50 text-blue-100 rounded-xl rounded-tr-sm px-4 py-3 max-w-[70%] shadow-lg backdrop-blur-sm text-sm"
-        >
-          Hola, ¿puedes generar una orden de compra para 500 unidades del producto X con proveedor
-          Y?
+      @if (messageSent()) {
+        <div class="flex justify-end">
+          <div
+            class="bg-blue-600/30 border border-blue-500/50 text-blue-100 rounded-xl rounded-tr-sm px-4 py-3 max-w-[70%] shadow-lg backdrop-blur-sm text-sm"
+          >
+            {{ messageSent() }}
+          </div>
         </div>
-      </div>
+      }
 
-      <div class="flex justify-start">
-        <div
-          class="bg-gray-800/90 border border-gray-700/50 text-gray-200 rounded-xl rounded-tl-sm px-4 py-3 max-w-[70%] shadow-md backdrop-blur-sm text-sm"
-        >
-          ¡Claro! Con gusto genero la orden de compra. Por favor, confirma la fecha de entrega y el
-          precio unitario para el producto X.
+      @if (responseAi()) {
+        <div class="flex justify-start">
+          <div
+            class="bg-gray-800/90 border border-gray-700/50 text-gray-200 rounded-xl rounded-tl-sm px-4 py-3 max-w-[70%] shadow-md backdrop-blur-sm text-sm"
+          >
+            {{ responseAi() }}
+          </div>
         </div>
-      </div>
+      }
 
-      <div class="flex justify-start">
-        <div
-          class="bg-gray-800/90 border border-gray-700/50 text-gray-400 rounded-xl rounded-tl-sm px-4 py-3 shadow-md flex items-center gap-2"
-        >
-          <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-          <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:.2s]"></div>
-          <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:.4s]"></div>
+      @if (loadingResponseAi()) {
+        <div class="flex justify-start">
+          <div
+            class="bg-gray-800/90 border border-gray-700/50 text-gray-400 rounded-xl rounded-tl-sm px-4 py-3 shadow-md flex items-center gap-2"
+          >
+            <div class="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+            <div
+              class="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:.2s]"
+            ></div>
+            <div
+              class="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:.4s]"
+            ></div>
+          </div>
         </div>
-      </div>
+      }
     </div>
 
     <div class="mt-4 flex-shrink-0 pt-4 border-t border-gray-800">
       <div class="flex items-center gap-3">
         <input
           type="text"
+          [(ngModel)]="prompt"
           placeholder="Escribe aquí tu solicitud..."
           class="flex-1 bg-gray-800/80 border border-gray-700 rounded-2xl px-4 py-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500 transition-all duration-200"
         />
         <button
           class="p-3 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-lg hover:shadow-cyan-500/40 active:scale-95 disabled:opacity-50"
+          (click)="askAi()"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -130,11 +135,4 @@
       </div>
     </div>
   </div>
-
-  <button
-    class="w-full flex-shrink-0 mt-4 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold text-lg hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-xl hover:shadow-blue-500/50 flex items-center justify-center gap-3"
-  >
-    <span>Generar Órdenes</span>
-    <span class="text-2xl">✨</span>
-  </button>
 </div>
