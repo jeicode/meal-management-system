@@ -1,0 +1,82 @@
+.container {
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.tap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tap-btn {
+  padding: 1rem;
+  border-radius: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.tap-btn:hover {
+  transform: scale(1.05);
+}
+
+.tap-btn.ai {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.tap-btn.manual {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.back {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.input-box {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.primary-btn {
+  width: 100%;
+  background-color: #2563eb;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.primary-btn:hover {
+  background-color: #1e40af;
+}

@@ -1,0 +1,171 @@
+<div class="relative z-10">
+  <!-- Estado inicial: elegir modo -->
+  @if (placeOrdersService.mode() === 'tap') {
+    <div class="text-center space-y-8">
+      <!-- Header con animación -->
+      <div class="space-y-3">
+        <p class="text-gray-400 text-base max-w-md mx-auto">
+          Elige cómo deseas crear tu orden de manera inteligente
+        </p>
+      </div>
+
+      <!-- Opciones de generación con animación mejorada -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+        <!-- Opción IA -->
+        <button
+          (click)="placeOrdersService.mode.set('ai')"
+          class="group relative overflow-hidden bg-gradient-to-br from-blue-600/20 via-blue-500/15 to-cyan-500/20 border-2 border-blue-500/40 rounded-2xl p-8 transition-all duration-300 hover:scale-105 hover:border-blue-400/60 hover:shadow-2xl hover:shadow-blue-500/30 active:scale-95"
+        >
+          <!-- Efecto de brillo al hover -->
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-cyan-400/20 to-blue-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-pulse"
+          ></div>
+
+          <!-- Contenido -->
+          <div class="relative z-10 flex flex-col items-center gap-4 text-center">
+            <div
+              class="p-4 bg-blue-500/20 rounded-xl group-hover:bg-blue-500/30 transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-10 w-10 text-blue-400 group-hover:text-blue-300 transition-colors"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M13 7H7v6h6V7z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+
+            <div class="space-y-2">
+              <h4
+                class="text-xl font-bold text-blue-300 group-hover:text-blue-200 transition-colors"
+              >
+                Generación con IA
+              </h4>
+              <p class="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">
+                Describe tus necesidades y la IA creará órdenes personalizadas
+              </p>
+            </div>
+
+            <div class="flex items-center gap-2 text-blue-400 text-sm font-medium">
+              <span>Comienza ahora</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </div>
+          </div>
+        </button>
+
+        <!-- Opción manual -->
+        <button
+          (click)="placeOrdersService.mode.set('manual')"
+          class="group relative overflow-hidden bg-gradient-to-br from-emerald-600/20 via-green-500/15 to-teal-500/20 border-2 border-emerald-500/40 rounded-2xl p-8 transition-all duration-300 hover:scale-105 hover:border-emerald-400/60 hover:shadow-2xl hover:shadow-emerald-500/30 active:scale-95"
+        >
+          <!-- Efecto de brillo al hover -->
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-emerald-400/0 via-green-400/20 to-emerald-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-pulse"
+          ></div>
+
+          <!-- Contenido -->
+          <div class="relative z-10 flex flex-col items-center gap-4 text-center">
+            <div
+              class="p-4 bg-emerald-500/20 rounded-xl group-hover:bg-emerald-500/30 transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-10 w-10 text-emerald-400 group-hover:text-emerald-300 transition-colors"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+
+            <div class="space-y-2">
+              <h4
+                class="text-xl font-bold text-emerald-300 group-hover:text-emerald-200 transition-colors"
+              >
+                Generación Manual
+              </h4>
+              <p class="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">
+                Especifica la cantidad exacta de órdenes aleatorias a crear
+              </p>
+            </div>
+
+            <div class="flex items-center gap-2 text-emerald-400 text-sm font-medium">
+              <span>Comienza ahora</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Tips informativos -->
+      <div
+        class="mt-8 bg-gradient-to-r from-gray-800/50 to-gray-700/50 border border-gray-600/30 rounded-xl p-4"
+      >
+        <div class="flex items-start gap-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <div class="text-sm text-gray-300">
+            <span class="font-semibold text-yellow-400">Consejo:</span>
+            Usa IA para órdenes específicas o manuales para cantidad rápida.
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Modo IA -->
+@if (placeOrdersService.mode() === 'ai') {
+  <ai-form />
+}
+
+<!-- Modo Manual -->
+@if (placeOrdersService.mode() === 'manual') {
+  <app-manual-place-order />
+}

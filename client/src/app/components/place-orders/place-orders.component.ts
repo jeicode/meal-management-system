@@ -1,10 +1,8 @@
-import { DatePipe, NgClass } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { KitchenService } from '../../shared/apis/kitchen.service';
 import { IOrderHistory } from '../../interfaces/order-history.interface';
 import { debounceTime, firstValueFrom } from 'rxjs';
-import { RouterLink } from '@angular/router';
 import { scrollIntoView } from '../../shared/utils/dom.utils';
 import { ToastrService } from 'ngx-toastr';
 import { hasErrorsFieldForm } from '../../shared/utils/form';
@@ -12,10 +10,18 @@ import { ModalRecipesComponent } from '../modal-recipes/modal-recipes.component'
 import { ORDER_STATUS } from '../../constants/kitchen.constants';
 import { SSEService } from '../../shared/apis/sse.service';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { ModalRecipesService } from '../modal-recipes/modal-recipes.service';
+import { FormPlaceOrderComponent } from './components/form-place-order/form-place-order.component';
+import { OrderDeliveredComponent } from './components/order-delivered/order-delivered.component';
 
 @Component({
   selector: 'app-place-orders',
-  imports: [ModalRecipesComponent, ReactiveFormsModule, NgClass, DatePipe, RouterLink],
+  imports: [
+    ModalRecipesComponent,
+    ReactiveFormsModule,
+    FormPlaceOrderComponent,
+    OrderDeliveredComponent,
+  ],
   templateUrl: './place-orders.component.html',
   styleUrl: './place-orders.component.css',
 })
@@ -24,6 +30,8 @@ export class PlaceOrdersComponent implements OnInit {
   private fb = inject(FormBuilder);
   private _kitchenService = inject(KitchenService);
   private _sseService = inject(SSEService);
+  modalRecipesService = inject(ModalRecipesService);
+  isLoadingOrdersDelivered = signal(true);
 
   lastOrderId = signal(0);
   lasrOrderId$ = toObservable(this.lastOrderId);
@@ -50,6 +58,7 @@ export class PlaceOrdersComponent implements OnInit {
   }
 
   getOrdersDelivered() {
+    this.isLoadingOrdersDelivered.set(true);
     let query = `where.status=${ORDER_STATUS.DELIVERED}`;
     query += `&orderBy.createdAt=desc`;
     query += `&take=4`;
@@ -62,10 +71,14 @@ export class PlaceOrdersComponent implements OnInit {
             totalIngredients: this.getTotalIngredientsUsedFromOrder(order),
           };
         });
+        console.log(res.data);
         this.ordersDelivered.set(res.data);
       },
       error: (err) => {
         this.errorMessage.set(err.message);
+      },
+      complete: () => {
+        this.isLoadingOrdersDelivered.set(false);
       },
     });
   }

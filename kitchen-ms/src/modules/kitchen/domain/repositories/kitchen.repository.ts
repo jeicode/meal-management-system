@@ -5,8 +5,14 @@ type paramGetRecipes = {
   where: Prisma.RecipeWhereInput;
 };
 export async function getRecipes(params?: paramGetRecipes) {
-  if (!params) return await orm.recipe.findMany();
-  return await orm.recipe.findMany(params);
+  const recipes = await orm.recipe.findMany({
+    ...params,
+    include: {
+      ingredients: true,
+    },
+  });
+
+  return recipes;
 }
 
 type paramGetRecipeIngredients = {

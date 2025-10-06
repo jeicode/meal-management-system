@@ -18,6 +18,7 @@ model Recipe {
   id        Int       @id @default(autoincrement())
   name      String    @unique @db.VarChar(255)
   imageUrl  String?   @db.VarChar(900)
+  ingredients RecipeIngredient[]
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt()
 }
@@ -25,11 +26,11 @@ model Recipe {
 model RecipeIngredient {
   recipeId     Int
   ingredientId Int
-  quantity     Int // cantidad del ingrediente en la receta
+  quantity     Int
+  recipe       Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
-  @@id([recipeId, ingredientId]) // clave compuesta
+  @@id([recipeId, ingredientId])
 }
-
 model OrderHistory {
   id            Int         @id @default(autoincrement())
   listRecipes   Json[]
