@@ -58,7 +58,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
         console.error('❌ Canal de RabbitMQ no disponible');
         return;
       }
-      // await channel.prefetch(1);
+      await channel.prefetch(1);
       console.log(`✅ Esperando mensajes en la cola: ${INVENTORY_INGREDIENTS_QUEUE}`);
 
       channel.consume(
