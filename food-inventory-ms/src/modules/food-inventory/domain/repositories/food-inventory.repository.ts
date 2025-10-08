@@ -107,8 +107,7 @@ export async function updateInventoryFromRecipesRequest({
 
 export async function getInventoryIngredients() {
   try {
-    const ingredients = await orm.ingredient.findMany();
-    return ingredients;
+    return await orm.ingredient.findMany();
   } catch (error: unknown) {
     return handleError(error);
   }
