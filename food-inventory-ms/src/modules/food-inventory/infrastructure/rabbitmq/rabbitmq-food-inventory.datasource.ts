@@ -63,6 +63,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
             channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(data)), {
               correlationId: msg.properties.correlationId,
             });
+            channel.ack(msg);
           }
         },
         { noAck: true },
