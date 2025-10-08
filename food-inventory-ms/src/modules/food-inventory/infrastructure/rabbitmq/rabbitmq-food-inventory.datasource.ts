@@ -54,49 +54,20 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
 
   async rpcInventoryIngredients() {
     try {
-      if (!channel) {
-        console.error('❌ Canal de RabbitMQ no disponible');
-        return;
-      }
-      await channel.prefetch(1);
-      console.log(`✅ Esperando mensajes en la cola: ${INVENTORY_INGREDIENTS_QUEUE}`);
-
       channel.consume(
         INVENTORY_INGREDIENTS_QUEUE,
         async msg => {
-          if (!msg) {
-            console.log('⚠️ Mensaje nulo recibido');
-            return;
-          }
-
-          try {
-            console.log('📨 Solicitud recibida:', msg.content.toString());
-
-            if (!msg.properties.replyTo || !msg.properties.correlationId) {
-              console.error('❌ Mensaje sin replyTo o correlationId');
-              channel.nack(msg, false, false);
-              return;
-            }
-
+          if (msg) {
             const data = await getInventoryIngredients();
-
             channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(data)), {
               correlationId: msg.properties.correlationId,
             });
-
-            channel.ack(msg);
-            console.log('✅ Respuesta enviada correctamente');
-          } catch (error) {
-            console.error('❌ Error procesando mensaje:', error);
-            // Rechazar y NO reencolar si es un error de procesamiento
-            channel.nack(msg, false, false);
           }
         },
-        { noAck: false },
+        { noAck: true },
       );
     } catch (err: unknown) {
       logError('❌ consumeInventoryIngredients', (err as Error).message);
-      throw err; // Re-lanzar para que se maneje en un nivel superior
     }
   }
   async rpcHistoryPurchase() {
