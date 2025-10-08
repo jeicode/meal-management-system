@@ -7,7 +7,7 @@ import {
   INVENTORY_INGREDIENTS_QUEUE,
   INVENTORY_PURCHASE_HISTORY_QUEUE,
 } from 'src/core/constants/rabbitmq.constants';
-import { rpcRequest } from './helpers/rabbitmq-rpc.helper';
+import { rpcRequest } from 'src/shared/utils/rabbitmq/rabbitmq-rpc.helper';
 
 export class RabbitMQInventoryRpcDatasource implements InventoryRpcDatasource {
   async getInventoryIngredients(): Promise<Record<string, unknown>> {

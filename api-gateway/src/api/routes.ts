@@ -13,10 +13,10 @@ import { runServerSSE } from 'src/api/sse/sse.controller';
 import { Route } from 'src/core/interfaces/http.interface';
 import { agentController } from './agent/presentation/agent.controller';
 import { generateOrdersWithAiSchema } from './agent/presentation/schemas/agent.schemas';
+import { deleteDataController } from './settings/presentation/settings.controller';
 
 const BASE_API = '/api/v1';
 
-// Definir rutas en un arreglo
 export const routes: Route[] = [
   {
     method: 'GET',
@@ -67,5 +67,10 @@ export const routes: Route[] = [
     method: 'GET',
     path: `${BASE_API}/inventory/ingredients`,
     controller: getInventoryIngredientsController,
+  },
+  {
+    method: 'DELETE',
+    path: `${BASE_API}/settings/delete-data`,
+    controller: deleteDataController,
   },
 ];

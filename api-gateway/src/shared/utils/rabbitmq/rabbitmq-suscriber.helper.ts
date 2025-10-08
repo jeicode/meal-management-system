@@ -1,13 +1,12 @@
-// rabbitmq-subscribe.helper.ts
-import { Channel, ConsumeMessage } from "amqplib";
+import { Channel, ConsumeMessage } from 'amqplib';
 
 export async function subscribeQueue(
   channel: Channel,
   queue: string,
   onMessage: (msg: ConsumeMessage, ack: () => void, nack: () => void) => void,
-  options: { prefetch?: number; noAck?: boolean } = {}
+  options: { prefetch?: number; noAck?: boolean } = {},
 ): Promise<string> {
-  if (!channel) throw new Error("RabbitMQ no inicializado");
+  if (!channel) throw new Error('RabbitMQ no inicializado');
 
   if (options.prefetch) {
     await channel.prefetch(options.prefetch);
@@ -15,11 +14,15 @@ export async function subscribeQueue(
 
   const { consumerTag } = await channel.consume(
     queue,
-    (msg) => {
+    msg => {
       if (!msg) return;
-      onMessage(msg, () => channel.ack(msg), () => channel.nack(msg));
+      onMessage(
+        msg,
+        () => channel.ack(msg),
+        () => channel.nack(msg),
+      );
     },
-    { noAck: options.noAck ?? false }
+    { noAck: options.noAck ?? false },
   );
 
   return consumerTag;

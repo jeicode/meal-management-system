@@ -7,3 +7,4 @@ export const KITCHEN_ORDERS_HISTORY_QUEUE = 'kitchen_orders_history';
 export const INVENTORY_INGREDIENTS_QUEUE = 'inventory_ingredients';
 export const INVENTORY_INGREDIENTS_CHANGE_QUEUE = 'inventory_ingredients_change';
 export const INVENTORY_PURCHASE_HISTORY_QUEUE = 'inventory_purchase_history';
+export const DELETE_DATA_QUEUE = 'delete_data';

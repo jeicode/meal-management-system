@@ -1,9 +1,9 @@
-import { channel } from "src/config/rabbitmq.config";
-import { KitchenSubscriberDatasource } from "../../domain/datasources/kitchen.datasource";
-import { subscribeQueue } from "./helpers/rabbitmq-subscriber.helper";
-import { KITCHEN_ORDERS_PENDING_QUEUE } from "src/core/constants/rabbitmq.constants";
-import { sseClients } from "src/api/sse/sse.controller";
-import { logError } from "src/shared/utils/logs/logs.utils";
+import { channel } from 'src/config/rabbitmq.config';
+import { KitchenSubscriberDatasource } from '../../domain/datasources/kitchen.datasource';
+import { KITCHEN_ORDERS_PENDING_QUEUE } from 'src/core/constants/rabbitmq.constants';
+import { sseClients } from 'src/api/sse/sse.controller';
+import { logError } from 'src/shared/utils/logs/logs.utils';
+import { subscribeQueue } from 'src/shared/utils/rabbitmq/rabbitmq-suscriber.helper';
 
 export class RabbitMQKitchenSubscriber implements KitchenSubscriberDatasource {
   async subscribeOrdersPendingOrPreparing(): Promise<string> {
@@ -19,13 +19,13 @@ export class RabbitMQKitchenSubscriber implements KitchenSubscriberDatasource {
             }
             ack();
           } catch (err) {
-            logError("❌ Error processing kitchen.orders", (err as Error).message);
+            logError('❌ Error processing kitchen.orders', (err as Error).message);
           }
         },
-        { prefetch: 1, noAck: false }
+        { prefetch: 1, noAck: false },
       );
     } catch (err) {
-      logError("❌ subscribeOrdersPendingOrPreparing", (err as Error).message);
+      logError('❌ subscribeOrdersPendingOrPreparing', (err as Error).message);
       throw err;
     }
   }

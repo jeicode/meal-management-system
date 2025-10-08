@@ -8,7 +8,7 @@ import {
   paramsSendOrderToKitchen,
 } from 'src/api/kitchen/domain/datasources/kitchen.datasource';
 import { channel } from 'src/config/rabbitmq.config';
-import { rpcRequest } from './helpers/rabbitmq-rpc.helper';
+import { rpcRequest } from 'src/shared/utils/rabbitmq/rabbitmq-rpc.helper';
 
 export class RabbitMQKitchenRpc implements KitchenRpcDatasource {
   async getRecipesFromKitchen(): Promise<Record<string, any>> {
