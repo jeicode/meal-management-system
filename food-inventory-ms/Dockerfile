@@ -1,4 +1,3 @@
-# Etapa base
 FROM node:20.19.0-alpine AS base
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@latest --activate
@@ -10,15 +9,15 @@ RUN pnpm i -f
 FROM base AS build
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm run build 
+RUN pnpm run generate
+RUN pnpm run build
 
-# 🚀 Etapa Final (Runtime)
+
 FROM base AS final
 COPY --from=deps /app/node_modules ./node_modules 
 COPY --from=build /app/dist ./dist 
 COPY ./prisma ./dist/prisma
 
 WORKDIR /app/dist
-RUN npx prisma generate
 
-CMD ["node", "dist/src/index.js"]
+CMD ["node", "src/index.js"]
