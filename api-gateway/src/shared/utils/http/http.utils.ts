@@ -27,7 +27,7 @@ export function handleError(err: Error | unknown, res: ServerResponse) {
 }
 
 const allowedOrigins = [
-  'https://restaurant-client-ms.vercel.app',
+  'https://meal-management-system-ms.vercel.app',
   'http://localhost:4200',
   'http://localhost:3000',
 ];

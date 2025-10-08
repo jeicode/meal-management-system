@@ -3,7 +3,7 @@ import { addCors, addSecurityHeaders, sendResponse } from './http.utils';
 import { IncomingMessage, ServerResponse } from 'http';
 
 describe('sendResponse', () => {
-  let resMock:any;
+  let resMock: any;
 
   beforeEach(() => {
     resMock = {
@@ -35,7 +35,6 @@ describe('sendResponse', () => {
   });
 });
 
-
 describe('addCors', () => {
   let req: Partial<IncomingMessage>;
   let res: Partial<ServerResponse>;
@@ -58,7 +57,10 @@ describe('addCors', () => {
     addCors(req as IncomingMessage, res as ServerResponse);
 
     expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Origin', req!.headers!.origin);
-    expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'Access-Control-Allow-Methods',
+      'GET, POST, OPTIONS, DELETE',
+    );
     expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Headers', 'Content-Type');
     expect(res.writeHead).not.toHaveBeenCalled();
     expect(res.end).not.toHaveBeenCalled();
@@ -68,12 +70,17 @@ describe('addCors', () => {
     req!.headers!.origin = 'https://not-allowed.com';
 
     addCors(req as IncomingMessage, res as ServerResponse);
-    expect(res.setHeader).not.toHaveBeenCalledWith('Access-Control-Allow-Origin', req!.headers!.origin);
-    expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    expect(res.setHeader).not.toHaveBeenCalledWith(
+      'Access-Control-Allow-Origin',
+      req!.headers!.origin,
+    );
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'Access-Control-Allow-Methods',
+      'GET, POST, OPTIONS, DELETE',
+    );
     expect(res.setHeader).toHaveBeenCalledWith('Access-Control-Allow-Headers', 'Content-Type');
   });
 });
-
 
 describe('addSecurityHeaders', () => {
   let res: Partial<ServerResponse>;
@@ -89,19 +96,13 @@ describe('addSecurityHeaders', () => {
 
     expect(res.setHeader).toHaveBeenCalledWith(
       'Strict-Transport-Security',
-      'max-age=63072000; includeSubDomains; preload'
+      'max-age=63072000; includeSubDomains; preload',
     );
-    expect(res.setHeader).toHaveBeenCalledWith(
-      'X-Frame-Options',
-      'SAMEORIGIN'
-    );
+    expect(res.setHeader).toHaveBeenCalledWith('X-Frame-Options', 'SAMEORIGIN');
     expect(res.setHeader).toHaveBeenCalledWith(
       'Referrer-Policy',
-      'strict-origin-when-cross-origin'
+      'strict-origin-when-cross-origin',
     );
-    expect(res.setHeader).toHaveBeenCalledWith(
-      'Content-Security-Policy',
-      "default-src 'self'"
-    );
+    expect(res.setHeader).toHaveBeenCalledWith('Content-Security-Policy', "default-src 'self'");
   });
 });

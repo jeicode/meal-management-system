@@ -1,18 +1,18 @@
 import { dbChannel, orderHistoryTableChangeFilter } from '../../../../config/db-changes.config';
-import { ApiGatewayDatasource } from '../../domain/datasources/api-gateway.datasource';
 import { channel } from '../../../../config/rabbitmq.config';
-import { processKitchenOrders } from '../../../kitchen/domain/services/process-orders.service';
 import {
   KITCHEN_ORDERS_PENDING_QUEUE,
   KITCHEN_ORDERS_QUEUE,
 } from '../../../../core/constants/rabbitmq.constants';
 import { logError } from '../../../../shared/utils/logs.utils';
+import { processKitchenOrders } from '../../../kitchen/domain/services/process-orders.service';
+import { ApiGatewayDatasource } from '../../domain/datasources/api-gateway.datasource';
 
 export class RabbitMQApiGatewayRpc implements ApiGatewayDatasource {
   rpcOrdersPendingOrPreparing() {
     try {
       dbChannel
-        .on('postgres_changes', orderHistoryTableChangeFilter, payload => {
+        .on('postgres_changes', orderHistoryTableChangeFilter, (payload: any) => {
           channel.sendToQueue(KITCHEN_ORDERS_PENDING_QUEUE, Buffer.from(JSON.stringify(payload)));
         })
         .subscribe();
