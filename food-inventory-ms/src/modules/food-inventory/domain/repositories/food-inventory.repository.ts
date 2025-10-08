@@ -1,8 +1,8 @@
-import { logError } from 'src/shared/utils/logs.utils';
-import { orm } from 'src/config/orm.config';
-import { handleError } from 'src/shared/utils/general.utils';
-import { IOrderHistory } from 'src/core/interfaces/order-history.interface';
-import { PurchaseHistoryCreate } from 'src/core/interfaces/purchase-history.interface';
+import { logError } from '../../../../shared/utils/logs.utils';
+import { orm } from '../../../../config/orm.config';
+import { handleError } from '../../../../shared/utils/general.utils';
+import { IOrderHistory } from '../../../../core/interfaces/order-history.interface';
+import { PurchaseHistoryCreate } from '../../../../core/interfaces/purchase-history.interface';
 
 import {
   aggregateIngredientConsumption,
@@ -18,6 +18,17 @@ type UpdateIngredientQuantityParams = {
   name?: string;
   quantity: number;
 };
+
+export async function resetIngredientsQuantity() {
+  try {
+    return orm.ingredient.updateMany({
+      data: { quantity_available: 5 },
+    });
+  } catch (error: any) {
+    logError('Error al resetear los ingredientes ', error);
+    return false;
+  }
+}
 export async function updateIngredientQuantity(ing: UpdateIngredientQuantityParams) {
   try {
     const where = ing.id ? { id: ing.id } : { name: ing.name };
@@ -56,11 +67,9 @@ export async function updateInventoryFromRecipesRequest({
   order,
 }: UpdateInventoryFromOrdersParams): Promise<any> {
   try {
-    // 1. Agregar todos los ingredientes necesarios
     const consumption = aggregateIngredientConsumption(order.listRecipes);
     const ingredientIds = Array.from(consumption.keys());
 
-    // 2. Obtener todos los ingredientes en UNA sola consulta
     const ingredientsData = await fetchIngredientsByIds(ingredientIds);
 
     // Validar ingredientes faltantes
@@ -71,21 +80,17 @@ export async function updateInventoryFromRecipesRequest({
       }
     }
 
-    // 3. Calcular qué ingredientes faltan y qué actualizar
     const { updates, pendingPurchase, ingredientMap } = calculateInventoryChanges(
       ingredientsData,
       consumption,
     );
 
-    // 4. Actualizar inventario en UNA transacción con row-level locking
     if (updates.length > 0) {
       await updateInventoryInTransaction(updates);
     }
 
-    // 5. Enriquecer las recetas con información de ingredientes
     const enrichedRecipes = enrichRecipeIngredients(order.listRecipes, ingredientMap, consumption);
 
-    // 6. Determinar el estado de cada receta
     const recipesData = enrichedRecipes.map(recipe => ({
       ...recipe,
       status: determineRecipeStatus(recipe, pendingPurchase),
@@ -142,6 +147,14 @@ export async function getPurchaseHistory(params: GetInventoryPurchaseHistoryPara
     const remaining = count - skip - data.length;
 
     return { data, pagination: { total: count, remaining, take, skip } };
+  } catch (error: unknown) {
+    return handleError(error);
+  }
+}
+
+export async function deleteAllPurchaseHistory() {
+  try {
+    return await orm.purchaseHistory.deleteMany();
   } catch (error: unknown) {
     return handleError(error);
   }

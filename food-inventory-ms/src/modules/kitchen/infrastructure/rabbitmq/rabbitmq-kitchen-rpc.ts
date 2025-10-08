@@ -1,11 +1,11 @@
-import { channel } from 'src/config/rabbitmq.config';
+import { channel } from '../../../../config/rabbitmq.config';
 import {
   FOOD_INVENTORY_INGREDIENTS_QUEUE,
   PURCHASE_INGREDIENT_QUEUE,
-} from 'src/core/constants/rabbitmq.constants';
-import { logError } from 'src/shared/utils/logs.utils';
-import { KitchenDatasource } from 'src/modules/kitchen/domain/datasources/kitchen.datasource';
-import { updateInventoryFromRecipesRequest } from 'src/modules/food-inventory/domain/repositories/food-inventory.repository';
+} from '../../../../core/constants/rabbitmq.constants';
+import { logError } from '../../../../shared/utils/logs.utils';
+import { updateInventoryFromRecipesRequest } from '../../../food-inventory/domain/repositories/food-inventory.repository';
+import { KitchenDatasource } from '../../domain/datasources/kitchen.datasource';
 
 export class RabbitMQKitchenRpc implements KitchenDatasource {
   async rpcKitchenRequests() {

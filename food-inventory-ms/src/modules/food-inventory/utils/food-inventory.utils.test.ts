@@ -1,5 +1,3 @@
-// inventory.utils.test.ts
-
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
   fetchIngredientsByIds,
@@ -9,10 +7,10 @@ import {
   enrichRecipeIngredients,
   determineRecipeStatus,
 } from './food-inventory.utils';
-import { orm } from 'src/config/orm.config';
+import { orm } from '../../../config/orm.config';
 
 // Mock del ORM
-vi.mock('src/config/orm.config', () => ({
+vi.mock('../../../config/orm.config', () => ({
   orm: {
     ingredient: {
       findMany: vi.fn(),

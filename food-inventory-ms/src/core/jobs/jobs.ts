@@ -1,7 +1,7 @@
-import { FoodInventoryService } from "src/modules/food-inventory/domain/services/food-inventory.service";
-import { RabbitMQFoodInventoryDatasource } from "src/modules/food-inventory/infrastructure/rabbitmq/rabbitmq-food-inventory.datasource";
+import { FoodInventoryService } from '../../modules/food-inventory/domain/services/food-inventory.service';
+import { RabbitMQFoodInventoryDatasource } from '../../modules/food-inventory/infrastructure/rabbitmq/rabbitmq-food-inventory.datasource';
 
-const foodInventoryService = new FoodInventoryService(new RabbitMQFoodInventoryDatasource())
+const foodInventoryService = new FoodInventoryService(new RabbitMQFoodInventoryDatasource());
 export const makePendingIngredientPurchases = () => {
-    foodInventoryService.makePendingIngredientPurchases()
+  foodInventoryService.makePendingIngredientPurchases();
 };

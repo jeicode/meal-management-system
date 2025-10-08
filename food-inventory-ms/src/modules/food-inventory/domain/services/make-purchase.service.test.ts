@@ -1,34 +1,31 @@
-// make-purchase.test.ts
-
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import {
+  createPurchaseHistory,
+  incrementIngredientQuantity,
+} from '../repositories/food-inventory.repository';
+import { makePurchase } from './make-purchase.service';
+import { logError } from '../../../../shared/utils/logs.utils';
 
-// Mocks
-vi.mock('src/shared/utils/logs.utils', () => ({
+vi.mock('../../../../shared/utils/logs.utils', () => ({
   logError: vi.fn(),
 }));
 
-vi.mock('src/modules/food-inventory/domain/repositories/food-inventory.repository', () => ({
+vi.mock('../repositories/food-inventory.repository', () => ({
   createPurchaseHistory: vi.fn(),
   incrementIngredientQuantity: vi.fn(),
 }));
 
-vi.mock('src/modules/orders/domain/services/orders.service', () => ({
+vi.mock('../../../orders/domain/services/orders.service', () => ({
   OrderService: vi.fn().mockImplementation(() => ({
     requestOrderHistoryToKitchen: vi.fn(),
   })),
 }));
 
-vi.mock('src/modules/orders/infrastructure/rabbitmq/rabbitmq-order.datasource', () => ({
+vi.mock('../../../orders/infrastructure/rabbitmq/rabbitmq-order.datasource', () => ({
   RabbitMQOrderDatasource: vi.fn(),
 }));
 
 // Import después de los mocks
-import {
-  createPurchaseHistory,
-  incrementIngredientQuantity,
-} from 'src/modules/food-inventory/domain/repositories/food-inventory.repository';
-import { logError } from 'src/shared/utils/logs.utils';
-import { makePurchase } from './make-purchase.service';
 
 describe('makePurchase', () => {
   beforeEach(() => {

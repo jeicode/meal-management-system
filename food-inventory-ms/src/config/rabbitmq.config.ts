@@ -7,18 +7,20 @@ import {
   INVENTORY_PURCHASE_HISTORY_QUEUE,
   FOOD_INVENTORY_INGREDIENTS_QUEUE,
   PURCHASE_INGREDIENT_QUEUE,
-  FI_HISTORY_ORDERS_REQUEST_QUEUE
+  FI_HISTORY_ORDERS_REQUEST_QUEUE,
+  DELETE_DATA_QUEUE,
 } from '../core/constants/rabbitmq.constants';
 
 const RABBITMQ_URL = environment.RABBITMQ_URL;
-let channel: amqp.Channel
+let channel: amqp.Channel;
 const QUEUES = [
   FOOD_INVENTORY_INGREDIENTS_QUEUE,
   FI_HISTORY_ORDERS_REQUEST_QUEUE,
   INVENTORY_INGREDIENTS_QUEUE,
   INVENTORY_INGREDIENTS_CHANGE_QUEUE,
   INVENTORY_PURCHASE_HISTORY_QUEUE,
-  PURCHASE_INGREDIENT_QUEUE
+  PURCHASE_INGREDIENT_QUEUE,
+  DELETE_DATA_QUEUE,
 ];
 
 export async function runRabbitMQ() {
@@ -40,16 +42,15 @@ async function maintainConnection(_channel: amqp.Channel) {
       durable: false,
       autoDelete: true,
       exclusive: true,
-    })
+    });
     setInterval(async () => {
       _channel.sendToQueue('heartbeat_queue', Buffer.from('ping'), {
         persistent: false,
       });
     }, 30000);
-
   } catch (error) {
     logError('Error al conectar con RabbitMQ:', error);
   }
 }
 
-export { channel }
+export { channel };

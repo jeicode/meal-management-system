@@ -1,6 +1,7 @@
 export interface FoodInventoryDatasource {
-    suscribeIngredientsChanges(): void
-    rpcInventoryIngredients(): Promise<any>
-    rpcHistoryPurchase(): Promise<any>
-    makePendingIngredientPurchases(): void
+  suscribeIngredientsChanges(): void;
+  rpcInventoryIngredients(): Promise<any>;
+  rpcHistoryPurchase(): Promise<any>;
+  makePendingIngredientPurchases(): void;
+  rpcDeleteAllPurchaseHistory(): void;
 }

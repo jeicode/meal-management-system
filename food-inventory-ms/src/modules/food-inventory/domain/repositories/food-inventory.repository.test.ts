@@ -1,5 +1,3 @@
-// food-inventory.repository.test.ts
-
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   updateIngredientQuantity,
@@ -8,10 +6,10 @@ import {
   createPurchaseHistory,
   getPurchaseHistory,
 } from './food-inventory.repository';
-import { orm } from 'src/config/orm.config';
+import { orm } from '../../../../config/orm.config';
 
 // Mocks
-vi.mock('src/config/orm.config', () => ({
+vi.mock('../../../../config/orm.config', () => ({
   orm: {
     ingredient: {
       update: vi.fn(),
@@ -26,11 +24,11 @@ vi.mock('src/config/orm.config', () => ({
   },
 }));
 
-vi.mock('src/shared/utils/logs.utils', () => ({
+vi.mock('../../../../shared/utils/logs.utils', () => ({
   logError: vi.fn(),
 }));
 
-vi.mock('src/shared/utils/db/db.utils', () => ({
+vi.mock('../../../../shared/utils/db/db.utils', () => ({
   retry: vi.fn(fn => fn()),
 }));
 

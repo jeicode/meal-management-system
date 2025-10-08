@@ -1,6 +1,6 @@
-import { KitchenService } from 'src/modules/kitchen/domain/services/kitchen.service';
 import { logError } from '../../../shared/utils/logs.utils';
-import { RabbitMQKitchenRpc } from 'src/modules/kitchen/infrastructure/rabbitmq/rabbitmq-kitchen-rpc';
+import { KitchenService } from '../../kitchen/domain/services/kitchen.service';
+import { RabbitMQKitchenRpc } from '../../kitchen/infrastructure/rabbitmq/rabbitmq-kitchen-rpc';
 
 const kitchenService = new KitchenService(new RabbitMQKitchenRpc());
 
