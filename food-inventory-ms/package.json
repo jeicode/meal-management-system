@@ -19,7 +19,7 @@
   "devDependencies": {
     "@eslint/js": "9.37.0",
     "@types/amqplib": "0.10.7",
-    "@types/node": "22.14.0",
+    "@types/node": "22.18.8",
     "dotenv": "17.2.3",
     "eslint": "9.37.0",
     "eslint-config-prettier": "10.1.8",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@prisma/client": "6.17.0",
-    "@supabase/supabase-js": "2.49.4",
+    "@supabase/supabase-js": "2.49.10",
     "amqplib": "0.10.9",
     "env-var": "7.5.0",
     "uuid": "13.0.0"
