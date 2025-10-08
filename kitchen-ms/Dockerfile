@@ -13,7 +13,8 @@ RUN pnpm i -f
 FROM base AS build
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm run generate && pnpm run build 
+RUN pnpm run generate
+RUN pnpm run build
 
 # Etapa final
 FROM base AS final
