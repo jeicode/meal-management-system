@@ -10,7 +10,6 @@ import {
   FI_HISTORY_ORDERS_REQUEST_QUEUE,
   DELETE_DATA_QUEUE,
 } from '../core/constants/rabbitmq.constants';
-import { cleanupQueue } from '../shared/rabbitmq/rabbitmq.utils';
 
 const RABBITMQ_URL = environment.RABBITMQ_URL;
 let channel: amqp.Channel;
@@ -29,7 +28,6 @@ export async function runRabbitMQ() {
     const connection = await amqp.connect(RABBITMQ_URL);
     channel = await connection.createChannel();
     for (const queue of QUEUES) {
-      await cleanupQueue(queue);
       await channel.assertQueue(queue, { durable: true });
     }
     maintainConnection(channel);
