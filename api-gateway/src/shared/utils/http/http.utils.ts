@@ -26,16 +26,8 @@ export function handleError(err: Error | unknown, res: ServerResponse) {
   sendResponse({ res, status, data: { error: { message } } });
 }
 
-const allowedOrigins = [
-  'https://meal-management-system-ms.vercel.app',
-  'http://localhost:4200',
-  'http://localhost:3000',
-];
 export function addCors(req: IncomingMessage, res: ServerResponse) {
-  const origin = req.headers.origin || '';
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
