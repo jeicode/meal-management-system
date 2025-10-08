@@ -120,13 +120,21 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
     }
   }
 
-  makePendingIngredientPurchases() {
-    channel.prefetch(1);
-    channel.consume(PURCHASE_INGREDIENT_QUEUE, async msg => {
-      if (!msg) return;
-      const data = JSON.parse(msg.content.toString());
-      await makePurchase(data);
-      channel.ack(msg);
-    });
+  async makePendingIngredientPurchases() {
+    try {
+      await channel.prefetch(1);
+      channel.consume(
+        PURCHASE_INGREDIENT_QUEUE,
+        async msg => {
+          if (!msg) return;
+          const data = JSON.parse(msg.content.toString());
+          await makePurchase(data);
+          channel.ack(msg);
+        },
+        { noAck: false },
+      );
+    } catch (error) {
+      logError('❌ makePendingIngredientPurchases', (error as Error).message);
+    }
   }
 }
