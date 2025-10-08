@@ -63,8 +63,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
         INVENTORY_INGREDIENTS_QUEUE,
         async msg => {
           if (!msg) return console.error('⚠️ Mensaje nulo recibido');
-          const data = await getInventoryIngredients();
-          console.log('📨 [4] llego data ✅ ');
+          const data = await getPurchaseHistory({ take: 12, skip: 0 });
           channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(data)), {
             correlationId: msg.properties.correlationId,
           });
