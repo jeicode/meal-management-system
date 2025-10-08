@@ -1,9 +1,9 @@
 import { ServerResponse } from 'http';
-import { Request } from 'src/core/interfaces/http.interface';
+import { Request } from '../../../core/interfaces/http.interface';
 
 import { SettingsRpcService } from '../domain/services/settings-rpc.service';
 import { RabbitMQSettingsDatasource } from '../infrastructure/rabbitmq/rabbitmq-inventory-rpc';
-import { handleError, sendResponse } from 'src/shared/utils/http/http.utils';
+import { sendResponse, handleError } from '../../../shared/utils/http/http.utils';
 
 const settingsRpcService = new SettingsRpcService(new RabbitMQSettingsDatasource());
 export async function deleteDataController(req: Request, res: ServerResponse) {

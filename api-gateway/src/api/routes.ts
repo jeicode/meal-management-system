@@ -3,14 +3,14 @@ import { getPurchaseHistorySchema } from './inventory/presentation/schemas/inven
 import {
   getInventoryIngredientsController,
   getPurchaseHistoryController,
-} from 'src/api/inventory/presentation/inventory.controller';
+} from './inventory/presentation/inventory.controller';
 import {
   getKitchenRecipesController,
   getOrdersController,
   kitchenOrderController,
-} from 'src/api/kitchen/presentation/kitchen.controller';
-import { runServerSSE } from 'src/api/sse/sse.controller';
-import { Route } from 'src/core/interfaces/http.interface';
+} from './kitchen/presentation/kitchen.controller';
+import { runServerSSE } from './sse/sse.controller';
+import { Route } from '../core/interfaces/http.interface';
 import { agentController } from './agent/presentation/agent.controller';
 import { generateOrdersWithAiSchema } from './agent/presentation/schemas/agent.schemas';
 import { deleteDataController } from './settings/presentation/settings.controller';

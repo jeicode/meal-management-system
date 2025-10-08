@@ -1,9 +1,9 @@
-import { handleError } from 'src/shared/utils/http/http.utils';
-import { sendResponse } from 'src/shared/utils/http/http.utils';
+import { handleError } from '../../../shared/utils/http/http.utils';
+import { sendResponse } from '../../../shared/utils/http/http.utils';
 import { IncomingMessage, ServerResponse } from 'http';
-import { Request } from 'src/core/interfaces/http.interface';
-import { KitchenRpcService } from 'src/api/kitchen/domain/services/kitchen-rpc.service';
-import { RabbitMQKitchenRpc } from 'src/api/kitchen/infrastructure/rabbitmq/rabbitmq-kitchen-rpc';
+import { Request } from '../../../core/interfaces/http.interface';
+import { KitchenRpcService } from '../../../api/kitchen/domain/services/kitchen-rpc.service';
+import { RabbitMQKitchenRpc } from '../../../api/kitchen/infrastructure/rabbitmq/rabbitmq-kitchen-rpc';
 
 const kitchenService = new KitchenRpcService(new RabbitMQKitchenRpc());
 

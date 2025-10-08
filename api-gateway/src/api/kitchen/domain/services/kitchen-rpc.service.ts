@@ -1,7 +1,4 @@
-import {
-  KitchenRpcDatasource,
-  paramsSendOrderToKitchen,
-} from 'src/api/kitchen/domain/datasources/kitchen.datasource';
+import { KitchenRpcDatasource, paramsSendOrderToKitchen } from '../datasources/kitchen.datasource';
 
 export class KitchenRpcService {
   constructor(private readonly datasource: KitchenRpcDatasource) {}

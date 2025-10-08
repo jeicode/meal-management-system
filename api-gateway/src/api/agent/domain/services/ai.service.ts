@@ -1,9 +1,9 @@
 // src/services/ai.service.ts
 
 import { GoogleGenAI, FunctionDeclaration } from '@google/genai';
-import { mcpClient } from 'src/config/mcp-client.config';
 import { sanitizeFunctionName } from '../../utils/ai.utils';
-import { environment } from 'src/config/environment.config';
+import { environment } from '../../../../config/environment.config';
+import { mcpClient } from '../../../../config/mcp-client.config';
 
 const SYSTEM_INSTRUCTION = `
 ERES UN ASISTENTE PROACTIVO Y AUTÓNOMO.

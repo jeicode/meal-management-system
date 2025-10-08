@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import { Channel, ConsumeMessage } from 'amqplib';
-import { environment } from 'src/config/environment.config';
+import { environment } from '../../../config/environment.config';
 
 export function rpcRequest<T = any>(
   channel: Channel,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { orderSchema } from 'src/api/kitchen/presentation/schemas/kitchen-order.schemas';
+import { orderSchema } from '../schemas/kitchen-order.schemas';
 
 describe('orderSchema validation', () => {
   it('should pass with a valid number of dishes', async () => {

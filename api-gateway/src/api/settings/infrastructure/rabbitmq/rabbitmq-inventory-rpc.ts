@@ -1,7 +1,7 @@
-import { channel } from 'src/config/rabbitmq.config';
-import { DELETE_DATA_QUEUE } from 'src/core/constants/rabbitmq.constants';
+import { channel } from '../../../../config/rabbitmq.config';
+import { DELETE_DATA_QUEUE } from '../../../../core/constants/rabbitmq.constants';
 import { SettingsDatasource } from '../../domain/datasources/settings.datasource';
-import { rpcRequest } from 'src/shared/utils/rabbitmq/rabbitmq-rpc.helper';
+import { rpcRequest } from '../../../../shared/utils/rabbitmq/rabbitmq-rpc.helper';
 
 export class RabbitMQSettingsDatasource implements SettingsDatasource {
   async deleteData(): Promise<Record<string, unknown>> {

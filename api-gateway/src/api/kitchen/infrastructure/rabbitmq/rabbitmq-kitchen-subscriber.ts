@@ -1,9 +1,9 @@
-import { channel } from 'src/config/rabbitmq.config';
+import { channel } from '../../../../config/rabbitmq.config';
 import { KitchenSubscriberDatasource } from '../../domain/datasources/kitchen.datasource';
-import { KITCHEN_ORDERS_PENDING_QUEUE } from 'src/core/constants/rabbitmq.constants';
-import { sseClients } from 'src/api/sse/sse.controller';
-import { logError } from 'src/shared/utils/logs/logs.utils';
-import { subscribeQueue } from 'src/shared/utils/rabbitmq/rabbitmq-suscriber.helper';
+import { KITCHEN_ORDERS_PENDING_QUEUE } from '../../../../core/constants/rabbitmq.constants';
+import { sseClients } from '../../../../api/sse/sse.controller';
+import { logError } from '../../../../shared/utils/logs/logs.utils';
+import { subscribeQueue } from '../../../../shared/utils/rabbitmq/rabbitmq-suscriber.helper';
 
 export class RabbitMQKitchenSubscriber implements KitchenSubscriberDatasource {
   async subscribeOrdersPendingOrPreparing(): Promise<string> {

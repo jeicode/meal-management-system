@@ -1,9 +1,7 @@
-// src/controllers/ai.controller.ts (El controlador simplificado)
-
 import { ServerResponse } from 'http';
-import { Request } from 'src/core/interfaces/http.interface';
-import { sendResponse } from 'src/shared/utils/http/http.utils';
 import { getAiResponseWithTools } from '../domain/services/ai.service';
+import { sendResponse } from '../../../shared/utils/http/http.utils';
+import { Request } from '../../../core/interfaces/http.interface';
 
 export async function agentController(req: Request, res: ServerResponse) {
   try {

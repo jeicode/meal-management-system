@@ -1,13 +1,13 @@
-// src/services/mcp-client.service.ts
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+import { environment } from './environment.config';
 
 class MCPClientService {
   private client: Client | null = null;
   private transport: StreamableHTTPClientTransport | null = null;
   private mcpUrl: string;
 
-  constructor(mcpUrl: string = 'http://localhost:3001') {
+  constructor(mcpUrl: string = environment.MCP_SERVER_URL) {
     this.mcpUrl = mcpUrl;
   }
 

@@ -1,13 +1,11 @@
-import { channel } from 'src/config/rabbitmq.config';
-import {
-  GetInventoryPurchaseHistoryParams,
-  InventoryRpcDatasource,
-} from 'src/api/inventory/domain/datasources/inventory.datasource';
+import { InventoryRpcDatasource } from '../../domain/datasources/inventory.datasource';
 import {
   INVENTORY_INGREDIENTS_QUEUE,
   INVENTORY_PURCHASE_HISTORY_QUEUE,
-} from 'src/core/constants/rabbitmq.constants';
-import { rpcRequest } from 'src/shared/utils/rabbitmq/rabbitmq-rpc.helper';
+} from '../../../../core/constants/rabbitmq.constants';
+import { channel } from '../../../../config/rabbitmq.config';
+import { rpcRequest } from '../../../../shared/utils/rabbitmq/rabbitmq-rpc.helper';
+import { GetInventoryPurchaseHistoryParams } from '../../../../api/inventory/domain/datasources/inventory.datasource';
 
 export class RabbitMQInventoryRpcDatasource implements InventoryRpcDatasource {
   async getInventoryIngredients(): Promise<Record<string, unknown>> {

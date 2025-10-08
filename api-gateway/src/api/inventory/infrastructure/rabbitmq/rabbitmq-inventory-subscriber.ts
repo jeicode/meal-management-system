@@ -1,12 +1,8 @@
-import { channel } from 'src/config/rabbitmq.config';
-import {
-  InventorySubscriberDatasource,
-} from 'src/api/inventory/domain/datasources/inventory.datasource';
-import {
-  INVENTORY_INGREDIENTS_CHANGE_QUEUE,
-} from 'src/core/constants/rabbitmq.constants';
-import { sseClients } from 'src/api/sse/sse.controller';
-import { logError } from 'src/shared/utils/logs/logs.utils';
+import { channel } from '../../../../config/rabbitmq.config';
+import { InventorySubscriberDatasource } from '../../../../api/inventory/domain/datasources/inventory.datasource';
+import { INVENTORY_INGREDIENTS_CHANGE_QUEUE } from '../../../../core/constants/rabbitmq.constants';
+import { sseClients } from '../../../../api/sse/sse.controller';
+import { logError } from '../../../../shared/utils/logs/logs.utils';
 
 export class RabbitMQInventorySubscriber implements InventorySubscriberDatasource {
   async subscribeAndResponseInventoryIngredients() {

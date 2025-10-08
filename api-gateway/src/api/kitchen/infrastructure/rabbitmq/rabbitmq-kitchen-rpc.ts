@@ -2,13 +2,13 @@ import {
   KITCHEN_ORDERS_HISTORY_QUEUE,
   KITCHEN_ORDERS_QUEUE,
   KITCHEN_RECIPE_QUEUE,
-} from 'src/core/constants/rabbitmq.constants';
+} from '../../../../core/constants/rabbitmq.constants';
+import { channel } from '../../../../config/rabbitmq.config';
+import { rpcRequest } from '../../../../shared/utils/rabbitmq/rabbitmq-rpc.helper';
 import {
   KitchenRpcDatasource,
   paramsSendOrderToKitchen,
-} from 'src/api/kitchen/domain/datasources/kitchen.datasource';
-import { channel } from 'src/config/rabbitmq.config';
-import { rpcRequest } from 'src/shared/utils/rabbitmq/rabbitmq-rpc.helper';
+} from '../../domain/datasources/kitchen.datasource';
 
 export class RabbitMQKitchenRpc implements KitchenRpcDatasource {
   async getRecipesFromKitchen(): Promise<Record<string, any>> {

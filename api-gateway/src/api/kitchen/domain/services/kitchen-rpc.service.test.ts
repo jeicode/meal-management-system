@@ -1,9 +1,8 @@
-// service.test.ts
-import { describe, it, expect, vi, beforeEach, Mocked } from "vitest";
-import { KitchenRpcDatasource } from "src/api/kitchen/domain/datasources/kitchen.datasource";
-import { KitchenRpcService } from "./kitchen-rpc.service";
+import { describe, it, expect, vi, beforeEach, Mocked } from 'vitest';
+import { KitchenRpcDatasource } from '../datasources/kitchen.datasource';
+import { KitchenRpcService } from './kitchen-rpc.service';
 
-describe("KitchenService", () => {
+describe('KitchenService', () => {
   let datasourceMock: Mocked<KitchenRpcDatasource>;
   let service: KitchenRpcService;
 
@@ -17,9 +16,9 @@ describe("KitchenService", () => {
     service = new KitchenRpcService(datasourceMock);
   });
 
-  it("debería obtener kitchen orders desde el datasource", async () => {
+  it('debería obtener kitchen orders desde el datasource', async () => {
     const params = { take: 10, skip: 0, where: {}, orderBy: {} };
-    const fakeOrders = [{ id: 1, status: "PENDING" }];
+    const fakeOrders = [{ id: 1, status: 'PENDING' }];
     datasourceMock.getKitchenOrders.mockResolvedValue(fakeOrders);
 
     const result = await service.getKitchenOrders(params);
@@ -28,8 +27,8 @@ describe("KitchenService", () => {
     expect(result).toEqual(fakeOrders);
   });
 
-  it("debería obtener recetas desde el datasource", async () => {
-    const fakeRecipes = [{ id: 1, name: "Pasta" }];
+  it('debería obtener recetas desde el datasource', async () => {
+    const fakeRecipes = [{ id: 1, name: 'Pasta' }];
     datasourceMock.getRecipesFromKitchen.mockResolvedValue(fakeRecipes);
 
     const result = await service.getRecipesFromKitchen();
@@ -38,7 +37,7 @@ describe("KitchenService", () => {
     expect(result).toEqual(fakeRecipes);
   });
 
-  it("debería enviar orden a la cocina", async () => {
+  it('debería enviar orden a la cocina', async () => {
     const params = { dishes: 3 };
     const fakeResponse = { success: true };
     datasourceMock.sendOrderToKitchen.mockResolvedValue(fakeResponse);

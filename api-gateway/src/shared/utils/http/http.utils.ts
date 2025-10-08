@@ -1,8 +1,8 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { parse } from 'url';
-import { Request, Route } from 'src/core/interfaces/http.interface';
-import { contentType } from 'src/core/constants/http.constants';
-import { sseClients } from 'src/api/sse/sse.controller';
+import { Request, Route } from '../../../core/interfaces/http.interface';
+import { contentType } from '../../../core/constants/http.constants';
+import { sseClients } from '../../../api/sse/sse.controller';
 
 type SendResponseParams = {
   res: ServerResponse;

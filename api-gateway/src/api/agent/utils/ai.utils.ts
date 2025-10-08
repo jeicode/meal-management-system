@@ -1,11 +1,3 @@
-// src/utils/ai.utils.ts
-
-/**
- * Función para sanitizar nombres de funciones según las reglas de Gemini (máx 64 caracteres,
- * solo letras, números y guiones bajos, debe empezar con letra o guión bajo).
- * @param name El nombre de la función a sanitizar.
- * @returns El nombre sanitizado.
- */
 export function sanitizeFunctionName(name: string): string {
   // Remueve caracteres no válidos y reemplaza espacios/caracteres especiales con guiones bajos
   let sanitized = name

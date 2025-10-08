@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getPurchaseHistorySchema } from 'src/api/inventory/presentation/schemas/inventory.schemas';
+import { getPurchaseHistorySchema } from '../schemas/inventory.schemas';
 
 describe('getPurchaseHistorySchema', () => {
   it('debería pasar con valores válidos', async () => {
