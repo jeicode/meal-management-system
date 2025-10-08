@@ -36,7 +36,7 @@ class MCPClientService {
 
       return this.client;
     } catch (error) {
-      console.error('❌ Failed to connect to MCP:', error);
+      console.error('❌ Failed to connect to MCP:' + this.mcpUrl, error);
       this.client = null;
       this.transport = null;
       throw error;
