@@ -1,3 +1,4 @@
+import { environment } from '../../config/environment.config';
 import { mcpServer } from '../../supabase-mcp-server';
 
 export function listIngredientsTool() {
@@ -9,7 +10,7 @@ export function listIngredientsTool() {
         'Devuelve la lista **completa** de todos los ingredientes. Útil para verificar la **disponibilidad**, **stock**, buscar ingredientes **faltantes**, **agotados** o cualquier consulta relacionada con el inventario actual.',
     },
     async () => {
-      const res = await fetch('http://localhost:3000/api/v1/inventory/ingredients');
+      const res = await fetch(`${environment.API_GATEWAY_URL}/api/v1/inventory/ingredients`);
       const data = await res.json();
       if (data.error) throw new Error(data.error?.message);
       return {

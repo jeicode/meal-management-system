@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { mcpServer } from '../../supabase-mcp-server';
+import { environment } from '../../config/environment.config';
 
 export function createOrderTool() {
   mcpServer.registerTool(
@@ -32,7 +33,7 @@ export function createOrderTool() {
     },
     async args => {
       let alreadyParams = false;
-      let url = 'http://localhost:3000/api/v1/kitchen/order';
+      let url = `${environment.API_GATEWAY_URL}/api/v1/kitchen/order`;
       if (args.dishes) {
         url += `?dishes=${args.dishes}`;
         alreadyParams = true;
