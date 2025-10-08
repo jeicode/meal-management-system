@@ -54,6 +54,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
 
   async rpcInventoryIngredients() {
     try {
+      await channel.prefetch(1);
       channel.consume(
         INVENTORY_INGREDIENTS_QUEUE,
         async msg => {

@@ -5,7 +5,8 @@ import { IOrderHistoryUpdate } from '../../../../core/interfaces/order-history.i
 import { randomUUID } from 'crypto';
 
 export class RabbitMQOrderDatasource implements OrderDatasource {
-  requestOrderHistoryToKitchen(data: IOrderHistoryUpdate): Promise<any> {
+  async requestOrderHistoryToKitchen(data: IOrderHistoryUpdate): Promise<any> {
+    await channel.prefetch(1);
     return new Promise(resolve => {
       channel.assertQueue('', { exclusive: true }).then(({ queue: randomQueue }) => {
         const correlationId = randomUUID();
