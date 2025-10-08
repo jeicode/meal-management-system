@@ -22,7 +22,7 @@ export class RabbitMQKitchenSubscriber implements KitchenSubscriberDatasource {
             logError('❌ Error processing kitchen.orders', (err as Error).message);
           }
         },
-        { prefetch: 1, noAck: false },
+        { prefetch: 3, noAck: false },
       );
     } catch (err) {
       logError('❌ subscribeOrdersPendingOrPreparing', (err as Error).message);
