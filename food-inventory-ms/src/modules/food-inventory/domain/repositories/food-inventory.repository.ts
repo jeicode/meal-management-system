@@ -108,15 +108,21 @@ export async function updateInventoryFromRecipesRequest({
 export async function getInventoryIngredients() {
   try {
     console.log('🔍 Consultando base de datos...');
-    const result = await orm.ingredient.findMany();
-    console.log('✅ Resultado de DB:', result ? `${result.length} registros` : 'vacío');
+
+    // Crear un timeout de 5 segundos
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Timeout: La consulta tardó más de 5 segundos')), 5000);
+    });
+
+    const queryPromise = orm.ingredient.findMany();
+
+    const result = await Promise.race([queryPromise, timeoutPromise]);
     return result;
   } catch (error: unknown) {
     console.error('❌ Error en getInventoryIngredients:', error);
-    throw error; // RE-lanza el error en lugar de solo manejarlo
+    throw error;
   }
 }
-
 export async function createPurchaseHistory(data: PurchaseHistoryCreate) {
   try {
     return await orm.purchaseHistory.create({

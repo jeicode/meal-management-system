@@ -12,7 +12,6 @@ import { dbChannel, ingredientTableChangeFilter } from '../../../../config/db-ch
 import { makePurchase } from '../../domain/services/make-purchase.service';
 import {
   deleteAllPurchaseHistory,
-  getInventoryIngredients,
   getPurchaseHistory,
 } from '../../domain/repositories/food-inventory.repository';
 
@@ -71,11 +70,8 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
 
           try {
             console.log('🔄 [4] Obteniendo datos...');
-            const data = await getInventoryIngredients();
-            console.log(
-              '✅ [5] Datos obtenidos:',
-              data ? `${data?.length} items` : 'null/undefined',
-            );
+            const data = await getPurchaseHistory({ take: 3, skip: 0 });
+            console.log('✅ [5] Datos obtenidos:');
 
             if (!channel) {
               console.error('❌ Canal cerrado al intentar enviar respuesta');
