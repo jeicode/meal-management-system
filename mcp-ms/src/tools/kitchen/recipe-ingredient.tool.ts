@@ -1,4 +1,4 @@
-import { mcpServer, supabase } from '../supabase-mcp-server';
+import { mcpServer, supabase } from 'src/supabase-mcp-server';
 import { z } from 'zod';
 
 export function createIngredientToRecipe() {

@@ -1,8 +1,8 @@
-import { KitchenService } from "src/modules/kitchen/domain/services/kitchen.service";
-import { logError } from "../../../shared/utils/logs.utils";
-import { RabbitMQKitchenDatasource } from "src/modules/kitchen/infrastructure/rabbitmq/rabbitmq-kitchen.datasource";
+import { KitchenService } from 'src/modules/kitchen/domain/services/kitchen.service';
+import { logError } from '../../../shared/utils/logs.utils';
+import { RabbitMQKitchenRpc } from 'src/modules/kitchen/infrastructure/rabbitmq/rabbitmq-kitchen-rpc';
 
-const kitchenService = new KitchenService(new RabbitMQKitchenDatasource())
+const kitchenService = new KitchenService(new RabbitMQKitchenRpc());
 
 export async function rpcKitchenRequests() {
   try {
