@@ -1,5 +1,5 @@
 import { handleError } from 'src/shared/utils/general.utils';
-import { RabbitMQFoodInventoryDatasource } from 'src/modules/food-inventory/infraestructure/rabbitmq/rabbitmq-food-inventory.datasource';
+import { RabbitMQFoodInventoryRpc } from 'src/modules/food-inventory/infraestructure/rabbitmq/rabbitmq-food-inventory-rpc';
 import { FoodInventoryService } from 'src/modules/food-inventory/domain/services/food-inventory.service';
 import { selectRecipes } from '../../utils/recipe.utils';
 import {
@@ -13,7 +13,7 @@ import {
   updateOrderWithInventoryData,
 } from '../../utils/order-manager.util';
 
-const inventoryService = new FoodInventoryService(new RabbitMQFoodInventoryDatasource());
+const inventoryService = new FoodInventoryService(new RabbitMQFoodInventoryRpc());
 
 type ProcessOrderParams = { orders: number; presetRecipesIds?: string };
 

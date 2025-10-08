@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { mcpServer, supabase } from '../supabase-mcp-server';
+import { mcpServer, supabase } from '../../supabase-mcp-server';
 
 export function createRecipeTool() {
   mcpServer.registerTool(

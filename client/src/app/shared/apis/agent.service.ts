@@ -19,6 +19,7 @@ export class AgentService {
         with: () => throwError(() => TIMEOUT_ERROR),
       }),
       catchError(({ error }: any) => {
+        console.error('Error en askAi:', error);
         return of({ error: { message: error.error.message } });
       }),
     );

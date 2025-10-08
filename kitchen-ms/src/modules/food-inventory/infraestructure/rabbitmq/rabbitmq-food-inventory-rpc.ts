@@ -1,5 +1,8 @@
 import { orm } from 'src/config/orm.config';
-import { FoodInventoryDatasource, RequestIngredientsToInventoryParams } from '../../domain/datasources/food-inventory.datasource';
+import {
+  FoodInventoryDatasource,
+  RequestIngredientsToInventoryParams,
+} from '../../domain/datasources/food-inventory.datasource';
 import { channel } from 'src/config/rabbitmq.config';
 import {
   FI_HISTORY_ORDERS_REQUEST_QUEUE,
@@ -9,7 +12,7 @@ import { logError } from 'src/shared/utils/logs.utils';
 import { handleError } from 'src/shared/utils/general.utils';
 import { randomUUID } from 'crypto';
 
-export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource {
+export class RabbitMQFoodInventoryRpc implements FoodInventoryDatasource {
   async rpcFoodInventoryHistoryRequest() {
     try {
       await channel.prefetch(1);

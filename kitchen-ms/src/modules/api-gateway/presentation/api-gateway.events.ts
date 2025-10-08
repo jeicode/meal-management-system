@@ -1,12 +1,12 @@
-import { logError } from "../../../shared/utils/logs.utils";
-import { RabbitMQApiGatewayDatasource } from "../infrastructure/rabbitmq/rabbitmq-api-gateway.datasource";
-import { ApiGatewayService } from "../domain/services/api-gateway.service";
+import { logError } from '../../../shared/utils/logs.utils';
+import { RabbitMQApiGatewayRpc } from '../infrastructure/rabbitmq/rabbitmq-apigateway-rpc';
+import { ApiGatewayService } from '../domain/services/api-gateway.service';
 
-const apiGatewayService = new ApiGatewayService(new RabbitMQApiGatewayDatasource());
+const apiGatewayService = new ApiGatewayService(new RabbitMQApiGatewayRpc());
 
 export function rpcOrdersPendingOrPreparing() {
   try {
-    apiGatewayService.rpcOrdersPendingOrPreparing()
+    apiGatewayService.rpcOrdersPendingOrPreparing();
   } catch (err: any) {
     logError('❌ Error subscribing to database changes: rpcOrdersPendingOrPreparing', err.message);
   }
@@ -14,7 +14,7 @@ export function rpcOrdersPendingOrPreparing() {
 
 export async function rpcApiGatewayOrders() {
   try {
-    apiGatewayService.rpcApiGatewayOrders()
+    apiGatewayService.rpcApiGatewayOrders();
   } catch (error: any) {
     logError('❌ Error subscribing to database changes: rpcApiGatewayOrders', error.message);
   }

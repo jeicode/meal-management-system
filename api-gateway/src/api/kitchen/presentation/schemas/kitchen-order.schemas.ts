@@ -4,15 +4,47 @@ export const orderSchema = yup.object().shape({
   dishes: yup
     .number()
     .integer()
-    .required('Param dishes is required')
+    .test(
+      'one-of-required', // Nombre del test
+      'Debes enviar el parámetro "dishes" O "presetRecipesIds", pero no ambos.', // Mensaje de error (se puede poner en un solo campo)
+      function (value) {
+        const { presetRecipesIds } = this.parent;
+
+        const dishesExists = value !== null && value !== undefined;
+        const presetRecipesExists =
+          presetRecipesIds !== null && presetRecipesIds !== undefined && presetRecipesIds !== '';
+
+        if (dishesExists && presetRecipesExists) {
+          return this.createError({
+            message: 'Solo debes enviar "dishes" O "presetRecipesIds", no ambos.',
+          });
+        }
+
+        if (!dishesExists && !presetRecipesExists) {
+          return this.createError({
+            message: 'Debes enviar el parámetro "dishes" O "presetRecipesIds".',
+          });
+        }
+
+        return true;
+      },
+    )
     .max(15, 'You can send a maximum of 15 dishes')
-    .min(1, 'You must send at least one dish'),
+    .min(1, 'You must send at least one dish')
+    .nullable(),
+
   presetRecipesIds: yup
     .string()
-    .optional()
+    .test(
+      'one-of-required',
+      'Solo debes enviar "dishes" O "presetRecipesIds", no ambos.',
+      function () {
+        return true;
+      },
+    )
     .matches(/^(\d+)(,\d+)*$/, 'Debe ser una lista de números separados por comas (ej: 1,2,3)')
     .test('valid-numbers', 'Los IDs deben ser números válidos', value => {
-      if (!value) return true; // Si es opcional y está vacío
+      if (!value) return true;
       const ids = value.split(',');
       return ids.every(id => !isNaN(Number(id)) && Number(id) > 0);
     }),

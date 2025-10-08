@@ -1,4 +1,4 @@
-import { mcpServer } from '../supabase-mcp-server';
+import { mcpServer } from '../../supabase-mcp-server';
 
 export function listIngredientsTool() {
   mcpServer.registerTool(

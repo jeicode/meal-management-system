@@ -8,7 +8,7 @@ import {
 import { logError } from 'src/shared/utils/logs.utils';
 import { processKitchenOrders } from '../../../kitchen/domain/services/process-orders.service';
 
-export class RabbitMQApiGatewayDatasource implements ApiGatewayDatasource {
+export class RabbitMQApiGatewayRpc implements ApiGatewayDatasource {
   rpcOrdersPendingOrPreparing() {
     try {
       dbChannel

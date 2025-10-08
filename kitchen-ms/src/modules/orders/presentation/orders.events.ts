@@ -1,13 +1,13 @@
 // modules/orders/orders.events.ts
 import { OrdersService } from '../domain/services/orders.service';
-import { RabbitOrdersDatasource } from '../infraestructure/queue-mesaging/rabbit.implementation';
+import { RabbitMQOrdersRpc } from '../infraestructure/rabbitmq/rabbitmq-orders-rpc';
 import { RealtimeChannel } from '@supabase/supabase-js';
 import { orderHistoryTableChangeFilter } from 'src/config/db-changes.config';
 import { logError } from 'src/shared/utils/logs.utils';
 import { Channel } from 'amqplib';
 import { KITCHEN_ORDERS_QUEUE } from 'src/core/constants/rabbitmq.constants';
 
-const ordersService = new OrdersService(new RabbitOrdersDatasource());
+const ordersService = new OrdersService(new RabbitMQOrdersRpc());
 
 export async function rpcOrdersPendingOrPreparing(dbChannel: RealtimeChannel) {
   try {

@@ -1,15 +1,13 @@
 {
-  "name": "kitchen-ms",
+  "name": "mcp-ms",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "npx -y @modelcontextprotocol/inspector tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "debug": "npx -y @modelcontextprotocol/inspector tsx src/index.ts",
     "build": "tsc",
     "test": "vitest",
-    "generate": "npx prisma generate",
-    "migrate:dev": "npx prisma migrate dev",
-    "migrate:prod": "npx prisma migrate deploy",
     "start": "node dist/src/index.js"
   },
   "keywords": [],

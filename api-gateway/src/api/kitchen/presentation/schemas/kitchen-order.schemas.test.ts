@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { orderSchema } from 'src/api/kitchen/presentation/schemas/kitchen-order.schemas';
 
 describe('orderSchema validation', () => {
-
   it('should pass with a valid number of dishes', async () => {
     const validData = { dishes: 5 };
     await expect(orderSchema.isValid(validData)).resolves.toBe(true);
@@ -36,7 +35,9 @@ describe('orderSchema validation', () => {
     try {
       await orderSchema.validate(invalidData);
     } catch (error) {
-      expect((error as Error)?.message).toBe('Param dishes is required');
+      expect((error as Error)?.message).toBe(
+        'Debes enviar el parámetro "dishes" O "presetRecipesIds".',
+      );
     }
   });
 });

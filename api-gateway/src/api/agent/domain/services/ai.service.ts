@@ -5,11 +5,22 @@ import { mcpClient } from 'src/config/mcp-client.config';
 import { sanitizeFunctionName } from '../../utils/ai.utils';
 import { environment } from 'src/config/environment.config';
 
+const SYSTEM_INSTRUCTION = `
+ERES UN ASISTENTE PROACTIVO Y AUTÓNOMO.
+
+REGLA CRÍTICA: NUNCA preguntes por detalles no esenciales (como nombres, colores, o preferencias si pueden ser asumidas) si el usuario te pide una creación. Si un detalle falta, **SIEMPRE invéntalo**.
+
+EJEMPLO: Si el usuario dice 'crea un plato random', la respuesta debe ser la creación completa (incluyendo nombre y detalles) en un solo paso. NO respondas '¿Qué nombre quieres que le ponga?'.
+
+SOLO puedes preguntar si la información es ABSOLUTAMENTE CRÍTICA y no se puede inferir o inventar, como credenciales de seguridad o una decisión que comprometa el flujo de la conversación.
+`;
+
 const ai = new GoogleGenAI({
   apiKey: environment.GOOGLE_API_KEY,
 });
 
-const AI_MODEL = 'gemini-2.0-flash-exp';
+const AI_MODEL = 'gemini-2.0-flash';
+let conversationHistory = '';
 
 /**
  * Interfaz para el resultado de la ejecución de una herramienta.
@@ -50,6 +61,7 @@ export async function getAiResponseWithTools(
     model: AI_MODEL,
     contents: text,
     config: {
+      systemInstruction: SYSTEM_INSTRUCTION,
       tools: [
         {
           functionDeclarations: functionDeclarations,
@@ -84,7 +96,7 @@ export async function getAiResponseWithTools(
     );
 
     // 4. Construir el historial y Segunda llamada a Gemini (respuesta final)
-    let conversationHistory = text + '\n\n';
+    conversationHistory += text + '\n\n';
 
     functionCalls.forEach((fc, index) => {
       conversationHistory += `[Function Call: ${fc.name}]\n`;

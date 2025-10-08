@@ -17,7 +17,7 @@ describe('rpcRequest', () => {
 
   it('debería lanzar error si no hay channel', () => {
     // @ts-expect-error probamos null channel
-    expect(() => rpcRequest(null, 'test-queue', {})).toThrow('RabbitMQ no inicializado');
+    expect(() => rpcRequest(null, 'test-queue', {})).toThrow('RabbitMQ not initialized');
   });
 
   it('debería resolver con error si se excede el timeout', async () => {
@@ -27,7 +27,7 @@ describe('rpcRequest', () => {
     await vi.runAllTimersAsync(); // esto asegura que se ejecute setTimeout dentro del Promise
 
     const result = await promise;
-    expect(result).toEqual({ error: { message: 'Tiempo de espera excedido' } });
+    expect(result).toEqual({ error: { message: 'Timeout exceeded' } });
     expect(mockChannel.deleteQueue).toHaveBeenCalledWith('reply-queue');
   });
 

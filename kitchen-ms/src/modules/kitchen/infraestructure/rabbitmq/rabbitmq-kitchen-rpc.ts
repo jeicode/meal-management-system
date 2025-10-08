@@ -12,7 +12,7 @@ import {
 } from 'src/modules/orders/domain/repositories/orders.repository';
 import { getRecipes } from '../../domain/repositories/kitchen.repository';
 
-export class RabbitMQKitchenDatasource implements KitchenDatasource {
+export class RabbitMQKitchenRpc implements KitchenDatasource {
   async rpcOrdersDelivered() {
     try {
       await channel.prefetch(1);

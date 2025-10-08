@@ -3,9 +3,14 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import express from 'express';
 import { createClient as createSupabase } from '@supabase/supabase-js';
 import { environment } from './config/environment.config';
-import { listIngredientsTool } from './tools/ingredient.tool';
-import { createRecipeTool, listRecipesTool } from './tools/recipe.tool';
-import { createIngredientToRecipe } from './tools/recipe-ingredient.tool';
+import { listIngredientsTool } from './tools/food-inventory/ingredient.tool';
+import { createRecipeTool, listRecipesTool } from './tools/kitchen/recipe.tool';
+import {
+  createIngredientToRecipe,
+  listRecipeIngredientsTool,
+} from './tools/kitchen/recipe-ingredient.tool';
+import { createOrderTool } from './tools/kitchen/order.tool';
+import { listPurchaseHistoryTool } from './tools/food-inventory/inventory.tool';
 
 export const mcpServer = new McpServer({
   name: 'supabase-mcp',
@@ -33,6 +38,9 @@ export class SupabaseMcpServer {
     listRecipesTool();
     createRecipeTool();
     createIngredientToRecipe();
+    createOrderTool();
+    listPurchaseHistoryTool();
+    listRecipeIngredientsTool();
   }
 
   private setupRoutes() {
