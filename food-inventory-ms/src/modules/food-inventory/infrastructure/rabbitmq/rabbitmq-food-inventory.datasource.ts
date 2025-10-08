@@ -63,48 +63,19 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
         INVENTORY_INGREDIENTS_QUEUE,
         async msg => {
           if (!msg) return console.error('⚠️ Mensaje nulo recibido');
-
+          // const data = await getInventoryIngredients();
           console.log('📨 [1] Solicitud recibida:', msg.content.toString());
           console.log('📨 [2] replyTo:', msg.properties.replyTo);
           console.log('📨 [3] correlationId:', msg.properties.correlationId);
+          const queue = await channel.checkQueue(msg.properties.replyTo);
+          console.log('📨 [4] existe la cola ?:', queue);
 
-          try {
-            console.log('🔄 [4] Obteniendo datos...');
-            const data = await getPurchaseHistory({ take: 3, skip: 0 });
-            console.log('✅ [5] Datos obtenidos:');
-
-            if (!channel) {
-              console.error('❌ Canal cerrado al intentar enviar respuesta');
-              return;
-            }
-
-            console.log('📤 [6] Enviando respuesta a:', msg.properties.replyTo);
-            const responseBuffer = Buffer.from(JSON.stringify(data));
-
-            console.log('📤 [6] Enviando respuesta...');
-            console.log('📤 [6.5] Tamaño del buffer:', responseBuffer.length, 'bytes');
-
-            try {
-              await channel.checkQueue(msg.properties.replyTo);
-              console.log('✅ Cola de respuesta existe');
-            } catch (queueError) {
-              console.error('❌ La cola de respuesta NO existe:', queueError);
-              // La cola no existe, el cliente probablemente se desconectó
-              channel.ack(msg); // Confirma el mensaje de todas formas
-              return;
-            }
-
-            channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(data)), {
-              correlationId: msg.properties.correlationId,
-            });
-            console.log('✅ [7] sendToQueue ejecutado');
-
-            channel.ack(msg);
-            console.log('✅ [8] Mensaje confirmado (ack)');
-          } catch (innerError) {
-            console.error('❌ Error procesando mensaje:', innerError);
-            channel.nack(msg, false, false); // Rechaza el mensaje sin requeue
-          }
+          // channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(data)), {
+          //   correlationId: msg.properties.correlationId,
+          // });
+          // console.log('✅ [7] sendToQueue ejecutado');
+          console.log('✅ [7] Saliendo del mensaje');
+          channel.ack(msg); // Confirma el mensaje de todas formas
         },
         { noAck: false },
       );
