@@ -109,14 +109,18 @@ export async function getInventoryIngredients() {
   try {
     console.log('🔍 Consultando base de datos...');
     const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Timeout: La consulta tardó más de 5 segundos')), 5000);
+      setTimeout(
+        () =>
+          reject(new Error('Timeout: La consulta getInventoryIngredients tardó más de 5 segundos')),
+        5000,
+      );
     });
     const queryPromise = orm.ingredient.findMany();
     const result = await Promise.race([queryPromise, timeoutPromise]);
     return result;
   } catch (error: unknown) {
     console.error('❌ Error en getInventoryIngredients:', error);
-    throw error;
+    return handleError(error);
   }
 }
 export async function createPurchaseHistory(data: PurchaseHistoryCreate) {
