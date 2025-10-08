@@ -111,8 +111,8 @@ export async function getInventoryIngredients() {
     const timeoutPromise = new Promise((_, reject) => {
       setTimeout(
         () =>
-          reject(new Error('Timeout: La consulta getInventoryIngredients tardó más de 5 segundos')),
-        5000,
+          reject(new Error('Timeout: La consulta getInventoryIngredients tardó más de 6 segundos')),
+        6000,
       );
     });
     const queryPromise = orm.ingredient.findMany();
