@@ -51,7 +51,7 @@ export function listPurchaseHistoryTool() {
           content: [{ type: 'text', text: JSON.stringify(data, null, 2) }],
           structuredContent: data,
         };
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error en Obtener_Historial_Compras:', error);
         return {
           content: [

@@ -13,12 +13,11 @@ RUN pnpm i -f
 FROM base AS build
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm run generate && pnpm run build 
+RUN pnpm run build 
 
 # Etapa final
 FROM base AS final
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
-COPY --from=build /app/prisma ./dist/prisma
 
 CMD ["node", "dist/src/index.js"]
