@@ -74,8 +74,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
         { noAck: false },
       );
     } catch (err: unknown) {
-      logError('❌ consumeInventoryIngredients', (err as Error).message);
-      throw err; // Re-lanzar para que se maneje en un nivel superior
+      console.error('❌ consumeInventoryIngredients', (err as Error).message);
     }
   }
   async rpcHistoryPurchase() {
