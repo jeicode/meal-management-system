@@ -12,6 +12,7 @@ import { dbChannel, ingredientTableChangeFilter } from '../../../../config/db-ch
 import { makePurchase } from '../../domain/services/make-purchase.service';
 import {
   deleteAllPurchaseHistory,
+  getInventoryIngredients,
   getPurchaseHistory,
 } from '../../domain/repositories/food-inventory.repository';
 
@@ -53,27 +54,23 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
 
   async rpcInventoryIngredients() {
     try {
-      if (!channel) {
-        console.error('❌ Canal de RabbitMQ no disponible');
-        return;
-      }
+      if (!channel) return console.error('❌ Canal de RabbitMQ no disponible');
+
+      await channel.prefetch(1);
       console.log(`✅ Esperando mensajes en la cola: ${INVENTORY_INGREDIENTS_QUEUE}`);
 
       channel.consume(
         INVENTORY_INGREDIENTS_QUEUE,
         async msg => {
           if (!msg) return console.error('⚠️ Mensaje nulo recibido');
-          // const data = await getInventoryIngredients();
           console.log('📨 [1] Solicitud recibida:', msg.content.toString());
           console.log('📨 [2] replyTo:', msg.properties.replyTo);
           console.log('📨 [3] correlationId:', msg.properties.correlationId);
-          // const queue = await channel.checkQueue(msg.properties.replyTo);
-          // console.log('📨 [4] existe la cola ?:', queue);
-
-          channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify([])), {
+          const data = await getInventoryIngredients();
+          console.log('📨 [4] llego data ✅ ');
+          channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(data)), {
             correlationId: msg.properties.correlationId,
           });
-          // console.log('✅ [7] sendToQueue ejecutado');
           console.log('✅ [7] Saliendo del mensaje');
           channel.ack(msg); // Confirma el mensaje de todas formas
         },
