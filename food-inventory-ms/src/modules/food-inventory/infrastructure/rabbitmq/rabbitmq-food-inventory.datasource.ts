@@ -66,7 +66,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
             channel.ack(msg);
           }
         },
-        { noAck: true },
+        { noAck: false },
       );
     } catch (err: unknown) {
       logError('❌ consumeInventoryIngredients', (err as Error).message);
