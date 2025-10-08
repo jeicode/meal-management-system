@@ -1,5 +1,5 @@
-import { Prisma } from 'prisma/prisma-client';
-import { orm } from 'src/config/orm.config';
+import { Prisma } from '../../../../../prisma/prisma-client';
+import { orm } from '../../../../config/orm.config';
 
 type paramGetRecipes = {
   where: Prisma.RecipeWhereInput;

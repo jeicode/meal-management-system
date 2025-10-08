@@ -1,8 +1,8 @@
 import {
   createOrderHistory,
   updateOrderHistory,
-} from 'src/modules/orders/domain/repositories/orders.repository';
-import { FoodInventoryService } from 'src/modules/food-inventory/domain/services/food-inventory.service';
+} from '../../../modules/orders/domain/repositories/orders.repository';
+import { FoodInventoryService } from '../../food-inventory/domain/services/food-inventory.service';
 
 export async function createNewOrder(recipesWithIngredients: any[]): Promise<any> {
   const order = await createOrderHistory({

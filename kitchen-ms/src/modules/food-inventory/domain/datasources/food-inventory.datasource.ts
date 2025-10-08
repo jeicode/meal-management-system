@@ -1,4 +1,4 @@
-import { OrderHistory } from 'prisma/prisma-client';
+import { OrderHistory } from '../../../../../prisma/prisma-client';
 
 export type RequestIngredientsToInventoryParams = { order: OrderHistory };
 export type RequestIngredientsToInventoryResponse = {

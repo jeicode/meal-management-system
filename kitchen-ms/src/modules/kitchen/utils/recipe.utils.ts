@@ -1,4 +1,4 @@
-import { isValidValue, randomItemFromList } from 'src/shared/utils/general.utils';
+import { isValidValue, randomItemFromList } from '../../../shared/utils/general.utils';
 import { getRecipes } from '../domain/repositories/kitchen.repository';
 
 export function parsePresetRecipeIds(presetRecipesIds?: string): number[] | null {

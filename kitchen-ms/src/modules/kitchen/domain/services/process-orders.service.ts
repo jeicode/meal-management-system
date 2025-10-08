@@ -1,6 +1,3 @@
-import { handleError } from 'src/shared/utils/general.utils';
-import { RabbitMQFoodInventoryRpc } from 'src/modules/food-inventory/infraestructure/rabbitmq/rabbitmq-food-inventory-rpc';
-import { FoodInventoryService } from 'src/modules/food-inventory/domain/services/food-inventory.service';
 import { selectRecipes } from '../../utils/recipe.utils';
 import {
   enrichRecipesWithIngredients,
@@ -12,6 +9,9 @@ import {
   processInventoryRequest,
   updateOrderWithInventoryData,
 } from '../../utils/order-manager.util';
+import { RabbitMQFoodInventoryRpc } from '../../../food-inventory/infraestructure/rabbitmq/rabbitmq-food-inventory-rpc';
+import { FoodInventoryService } from '../../../food-inventory/domain/services/food-inventory.service';
+import { handleError } from '../../../../shared/utils/general.utils';
 
 const inventoryService = new FoodInventoryService(new RabbitMQFoodInventoryRpc());
 

@@ -1,6 +1,6 @@
-import { KitchenService } from 'src/modules/kitchen/domain/services/kitchen.service';
-import { logError } from 'src/shared/utils/logs.utils';
-import { RabbitMQKitchenRpc } from 'src/modules/kitchen/infraestructure/rabbitmq/rabbitmq-kitchen-rpc';
+import { KitchenService } from '../../../modules/kitchen/domain/services/kitchen.service';
+import { logError } from '../../../shared/utils/logs.utils';
+import { RabbitMQKitchenRpc } from '../infraestructure/rabbitmq/rabbitmq-kitchen-rpc';
 
 const kitchenService = new KitchenService(new RabbitMQKitchenRpc());
 export async function rpcOrdersDelivered() {

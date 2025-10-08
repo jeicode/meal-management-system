@@ -1,8 +1,8 @@
-import { OrderStatus, Prisma } from 'prisma/prisma-client';
-import { orm } from 'src/config/orm.config';
-import { ORDER_STATUS } from 'src/core/constants/kitchen.constants';
-import { IOrderHistory, IRecipe } from 'src/core/interfaces/order-history.interface';
-import { handleError } from 'src/shared/utils/general.utils';
+import { OrderStatus, Prisma } from '../../../../../prisma/prisma-client';
+import { orm } from '../../../../config/orm.config';
+import { ORDER_STATUS } from '../../../../core/constants/kitchen.constants';
+import { IOrderHistory, IRecipe } from '../../../../core/interfaces/order-history.interface';
+import { handleError } from '../../../../shared/utils/general.utils';
 
 export async function updateOrderHistory(order: IOrderHistory) {
   try {
@@ -65,6 +65,14 @@ export async function updateOrderPendingToDelivered() {
       },
       data: { status: 'DELIVERED' },
     });
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
+export async function deleteAllOrders() {
+  try {
+    return await orm.orderHistory.deleteMany();
   } catch (error) {
     return handleError(error);
   }

@@ -1,10 +1,10 @@
-import { channel } from 'src/config/rabbitmq.config';
+import { channel } from '../../../../config/rabbitmq.config';
 import {
   KITCHEN_ORDERS_PENDING_QUEUE,
   KITCHEN_ORDERS_QUEUE,
-} from 'src/core/constants/rabbitmq.constants';
-import { OrdersDatasource } from 'src/modules/orders/domain/datasources/orders.datasource';
-import { processKitchenOrders } from 'src/modules/kitchen/domain/services/process-orders.service';
+} from '../../../../core/constants/rabbitmq.constants';
+import { processKitchenOrders } from '../../../kitchen/domain/services/process-orders.service';
+import { OrdersDatasource } from '../../domain/datasources/orders.datasource';
 
 export class RabbitMQOrdersRpc implements OrdersDatasource {
   async publishPendingOrder(payload: unknown): Promise<void> {

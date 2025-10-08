@@ -1,11 +1,10 @@
-// modules/orders/orders.events.ts
+import { orderHistoryTableChangeFilter } from '../../../config/db-changes.config';
+import { KITCHEN_ORDERS_QUEUE } from '../../../core/constants/rabbitmq.constants';
+import { logError } from '../../../shared/utils/logs.utils';
 import { OrdersService } from '../domain/services/orders.service';
 import { RabbitMQOrdersRpc } from '../infraestructure/rabbitmq/rabbitmq-orders-rpc';
 import { RealtimeChannel } from '@supabase/supabase-js';
-import { orderHistoryTableChangeFilter } from 'src/config/db-changes.config';
-import { logError } from 'src/shared/utils/logs.utils';
 import { Channel } from 'amqplib';
-import { KITCHEN_ORDERS_QUEUE } from 'src/core/constants/rabbitmq.constants';
 
 const ordersService = new OrdersService(new RabbitMQOrdersRpc());
 

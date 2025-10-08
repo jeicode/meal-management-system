@@ -1,6 +1,4 @@
-// modules/orders/orders.service.ts
-
-import { OrdersDatasource } from "src/modules/orders/domain/datasources/orders.datasource";
+import { OrdersDatasource } from '../datasources/orders.datasource';
 
 export class OrdersService {
   constructor(private readonly datasource: OrdersDatasource) {}

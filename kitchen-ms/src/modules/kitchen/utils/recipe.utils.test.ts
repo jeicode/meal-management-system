@@ -6,10 +6,10 @@ import {
   getRandomRecipes,
   selectRecipes,
 } from './recipe.utils';
-import * as generalUtils from 'src/shared/utils/general.utils';
+import * as generalUtils from '../../../shared/utils/general.utils';
 import * as kitchenRepository from '../domain/repositories/kitchen.repository';
 
-vi.mock('src/shared/utils/general.utils');
+vi.mock('../../../shared/utils/general.utils');
 vi.mock('../domain/repositories/kitchen.repository');
 
 describe('parsePresetRecipeIds', () => {

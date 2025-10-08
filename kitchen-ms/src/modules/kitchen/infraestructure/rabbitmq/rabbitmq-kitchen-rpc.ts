@@ -1,16 +1,17 @@
-import { channel } from 'src/config/rabbitmq.config';
-import { logError } from 'src/shared/utils/logs.utils';
+import { channel } from '../../../../config/rabbitmq.config';
+import { logError } from '../../../../shared/utils/logs.utils';
 import { KitchenDatasource } from '../../domain/datasources/kitchen.datasource';
 import {
   KITCHEN_ORDERS_DELIVERED_QUEUE,
   KITCHEN_ORDERS_HISTORY_QUEUE,
   KITCHEN_RECIPE_QUEUE,
-} from 'src/core/constants/rabbitmq.constants';
+} from '../../../../core/constants/rabbitmq.constants';
+
+import { getRecipes } from '../../domain/repositories/kitchen.repository';
 import {
   getOrdersDelivered,
   getOrdersHistory,
-} from 'src/modules/orders/domain/repositories/orders.repository';
-import { getRecipes } from '../../domain/repositories/kitchen.repository';
+} from '../../../orders/domain/repositories/orders.repository';
 
 export class RabbitMQKitchenRpc implements KitchenDatasource {
   async rpcOrdersDelivered() {

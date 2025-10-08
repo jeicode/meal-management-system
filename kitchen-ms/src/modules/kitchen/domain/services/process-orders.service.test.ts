@@ -4,12 +4,12 @@ import * as ingredientProcessor from '../../utils/ingredient-processor.util';
 import * as orderManager from '../../utils/order-manager.util';
 import { processKitchenOrders } from './process-orders.service';
 
-vi.mock('src/shared/utils/general.utils');
+vi.mock('../../utils/general.utils');
 vi.mock('../../utils/recipe.utils');
 vi.mock('../../utils/ingredient-processor.util');
 vi.mock('../../utils/order-manager.util');
-vi.mock('src/modules/food-inventory/domain/services/food-inventory.service');
-vi.mock('src/modules/food-inventory/infraestructure/rabbitmq/rabbitmq-food-inventory-rpc');
+vi.mock('../../domain/services/food-inventory.service');
+vi.mock('../../infraestructure/rabbitmq/rabbitmq-food-inventory-rpc');
 
 describe('processKitchenOrders', () => {
   beforeEach(() => {

@@ -5,3 +5,5 @@ export const KITCHEN_ORDERS_PENDING_QUEUE = 'kitchen_orders_pending';
 export const KITCHEN_ORDERS_DELIVERED_QUEUE = 'kitchen_orders_delivered';
 export const KITCHEN_ORDERS_HISTORY_QUEUE = 'kitchen_orders_history';
 export const KITCHEN_RECIPE_QUEUE = 'kitchen_recipe';
+
+export const DELETE_DATA_QUEUE = 'delete_data';

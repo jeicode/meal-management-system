@@ -1,10 +1,10 @@
-// service.ts
-
-import { FoodInventoryDatasource, RequestIngredientsToInventoryParams } from "../datasources/food-inventory.datasource";
-
+import {
+  FoodInventoryDatasource,
+  RequestIngredientsToInventoryParams,
+} from '../datasources/food-inventory.datasource';
 
 export class FoodInventoryService {
-  constructor(private readonly datasource: FoodInventoryDatasource) { }
+  constructor(private readonly datasource: FoodInventoryDatasource) {}
   rpcFoodInventoryHistoryRequest() {
     return this.datasource.rpcFoodInventoryHistoryRequest();
   }

@@ -4,11 +4,11 @@ import {
   processInventoryRequest,
   updateOrderWithInventoryData,
 } from './order-manager.util';
-import * as ordersRepository from 'src/modules/orders/domain/repositories/orders.repository';
-import { FoodInventoryService } from 'src/modules/food-inventory/domain/services/food-inventory.service';
+import * as ordersRepository from '../../../modules/orders/domain/repositories/orders.repository';
+import { FoodInventoryService } from '../../food-inventory/domain/services/food-inventory.service';
 
-vi.mock('src/modules/orders/domain/repositories/orders.repository');
-vi.mock('src/modules/food-inventory/domain/services/food-inventory.service');
+vi.mock('../../../modules/orders/domain/repositories/orders.repository');
+vi.mock('../../food-inventory/domain/services/food-inventory.service');
 
 describe('createNewOrder', () => {
   beforeEach(() => {
