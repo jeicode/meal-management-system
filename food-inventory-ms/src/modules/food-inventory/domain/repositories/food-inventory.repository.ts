@@ -107,9 +107,13 @@ export async function updateInventoryFromRecipesRequest({
 
 export async function getInventoryIngredients() {
   try {
-    return await orm.ingredient.findMany();
+    console.log('🔍 Consultando base de datos...');
+    const result = await orm.ingredient.findMany();
+    console.log('✅ Resultado de DB:', result ? `${result.length} registros` : 'vacío');
+    return result;
   } catch (error: unknown) {
-    return handleError(error);
+    console.error('❌ Error en getInventoryIngredients:', error);
+    throw error; // RE-lanza el error en lugar de solo manejarlo
   }
 }
 
