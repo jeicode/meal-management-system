@@ -8,7 +8,6 @@ FROM base AS deps
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm i -f
 
-
 # Etapa de construcción
 FROM base AS build
 COPY --from=deps /app/node_modules ./node_modules
