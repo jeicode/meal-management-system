@@ -70,9 +70,9 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
           // const queue = await channel.checkQueue(msg.properties.replyTo);
           // console.log('📨 [4] existe la cola ?:', queue);
 
-          // channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(data)), {
-          //   correlationId: msg.properties.correlationId,
-          // });
+          channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify([])), {
+            correlationId: msg.properties.correlationId,
+          });
           // console.log('✅ [7] sendToQueue ejecutado');
           console.log('✅ [7] Saliendo del mensaje');
           channel.ack(msg); // Confirma el mensaje de todas formas
