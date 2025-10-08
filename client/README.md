@@ -1,6 +1,6 @@
 # RestaurantClient
 
-Access the demo of the application here: [https://restaurant-client-ms.vercel.app](https://restaurant-client-ms.vercel.app)
+Access the demo of the application here: [https://meal-management-system-ms.vercel.app](https://meal-management-system-ms.vercel.app)
 
 ## Install dependencies
 

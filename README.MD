@@ -2,29 +2,32 @@
 
 Main repository for the microservices system for restaurant management.
 
-Access the demo of the application here: [https://restaurant-client-ms.vercel.app](https://restaurant-client-ms.vercel.app)
+Access the demo of the application here: [https://meal-management-system-ms.vercel.app](https://meal-management-system-ms.vercel.app)
 
 ## 🧩 Microservices Description
 
 ### 🔗 `api-gateway`
+
 - Receives client requests.
 - Redirects requests to the appropriate microservice.
 - Acts as a central entry point to the system.
 
 ### 🍱 `food-inventory-ms`
+
 - Manages the inventory of available ingredients and products.
 - Checks the availability of ingredients for orders.
 - Communicates with other services through events to update stock.
 
 ### 🍳 `kitchen-ms`
+
 - Simulates order processing and preparation.
 - Receives validated orders and executes their cooking.
 - Publishes events when an order has been prepared.
 
 ### 🌐 `client`
+
 - Web interface for restaurant users.
 - Allows viewing the menu, placing orders, and viewing order status.
-
 
 ## 🧱 Requirements
 

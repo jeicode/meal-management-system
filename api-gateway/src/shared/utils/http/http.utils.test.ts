@@ -52,7 +52,7 @@ describe('addCors', () => {
   });
 
   it('should set CORS headers when origin is allowed', () => {
-    req!.headers!.origin = 'https://restaurant-client-ms.vercel.app';
+    req!.headers!.origin = 'https://meal-management-system-ms.vercel.app';
 
     addCors(req as IncomingMessage, res as ServerResponse);
 
