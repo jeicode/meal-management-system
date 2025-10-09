@@ -20,4 +20,5 @@ FROM base AS final
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 
+EXPOSE 3001
 CMD ["node", "dist/src/index.js"]
