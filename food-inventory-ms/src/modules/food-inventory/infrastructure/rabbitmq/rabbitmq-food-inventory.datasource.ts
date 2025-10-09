@@ -55,10 +55,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
   async rpcInventoryIngredients() {
     try {
       if (!channel) return console.error('❌ Canal de RabbitMQ no disponible');
-
       await channel.prefetch(1);
-      console.log(`✅ Esperando mensajes en la cola: ${INVENTORY_INGREDIENTS_QUEUE}`);
-
       channel.consume(
         INVENTORY_INGREDIENTS_QUEUE,
         async msg => {
@@ -67,7 +64,7 @@ export class RabbitMQFoodInventoryDatasource implements FoodInventoryDatasource 
           channel.sendToQueue(msg.properties.replyTo, Buffer.from(JSON.stringify(data)), {
             correlationId: msg.properties.correlationId,
           });
-          console.log('✅ [7] Saliendo del mensaje');
+          console.log('✅ [7] Mensaje procesado ', msg.properties.correlationId);
           channel.ack(msg); // Confirma el mensaje de todas formas
         },
         { noAck: false },

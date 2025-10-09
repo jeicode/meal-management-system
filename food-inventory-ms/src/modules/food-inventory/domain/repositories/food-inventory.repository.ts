@@ -107,7 +107,6 @@ export async function updateInventoryFromRecipesRequest({
 
 export async function getInventoryIngredients() {
   try {
-    console.log('🔍 Consultando base de datos...');
     const timeoutPromise = new Promise((_, reject) => {
       setTimeout(
         () =>
