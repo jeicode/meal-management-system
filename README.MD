@@ -1,4 +1,4 @@
-# 🍽️ Restaurant-ms
+# 🍽️ Meal Management System
 
 Main repository for the microservices system for restaurant management.
 
@@ -24,6 +24,12 @@ Access the demo of the application here: [https://meal-management-system-ms.verc
 - Receives validated orders and executes their cooking.
 - Publishes events when an order has been prepared.
 
+### 🧠 `mcp-ms`
+
+- Stores the application's Product Knowledge Model (PKM).
+- Contains all the information, business rules, and knowledge structure of the system's domain.
+- Serves as the single source of truth and knowledge for other microservices that require it.
+
 ### 🌐 `client`
 
 - Web interface for restaurant users.
@@ -43,6 +49,7 @@ Each microservice has its own specific documentation. Please review the README.m
 - 2 [Kitchen Microservice](./kitchen-ms)
 - 3 [Food Inventory Microservice](./food-inventory-ms)
 - 4 [Restaurant Client](./restaurant-client)
+- 5 [MCP Microservice](./mcp-ms)
 
 ## 🚀 Environment Initialization
 

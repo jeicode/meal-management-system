@@ -17,6 +17,7 @@ API gateway microservice.
 ### RabbitMQ
 
 Start RabbitMQ if you don't have it running already.
+
 ```bash
 docker run -d \
 --name rabbitmq \
@@ -33,8 +34,10 @@ Create an .env file and make sure the RabbitMQ service is running. Then, update 
 
 ```bash
 PORT=3000
-RABBITMQ_URL=amqp://user:password@host
-TIMEOUT_RABBITMQ=10000 //optional
+RABBITMQ_URL=amqp://admin:admin@localhost
+TIMEOUT_RABBITMQ=20000
+GOOGLE_API_KEY=API_KEY_DE_GOOGLE_GEMINI
+MCP_SERVER_URL=URL EN DONDE SE ENCUENTRA EL MCP SERVER,ejemplo: http://localhost:3001
 ```
 
 ### Installing Dependencies
@@ -56,6 +59,7 @@ pnpm run dev
 ```
 
 ## Deployment
+
 ### with Docker
 
 ```bash
@@ -68,5 +72,5 @@ docker run -p 3000:3000 --env-file .env api-gateway
 ```bash
 pnpm install
 pnpm run build
-pnpm run start
+node dist/src/index.js
 ```

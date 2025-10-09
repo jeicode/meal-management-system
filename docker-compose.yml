@@ -1,6 +1,6 @@
 services:
   rabbitmq:
-    image: rabbitmq:4.1.0-rc.1-alpine 
+    image: rabbitmq:4.1.0-rc.1-alpine
     container_name: rabbitmq
     ports:
       - 5672:5672
@@ -19,6 +19,14 @@ services:
       - ./api-gateway/.env
     depends_on:
       - rabbitmq
+  mcp-ms:
+    build:
+      context: ./mcp-ms
+    container_name: mcp-ms
+    ports:
+      - 3001:3001
+    env_file:
+      - ./mcp-ms/.env
 
   kitchen-ms:
     build:

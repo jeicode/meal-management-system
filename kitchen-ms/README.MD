@@ -32,16 +32,15 @@ rabbitmq:4.1.0-rc.1-alpine
 
 Create an .env file and make sure the RabbitMQ service is running. Then, update the RABBITMQ_URL variable with the correct connection values.
 
-> **Note:** To use Supabase with *realtime* support, you must have a Supabase account and properly configure *Postgres Changes* as explained in the official documentation:  
+> **Note:** To use Supabase with _realtime_ support, you must have a Supabase account and properly configure _Postgres Changes_ as explained in the official documentation:  
 > [https://supabase.com/docs/guides/realtime/postgres-changes?queryGroups=database-method&database-method=sql](https://supabase.com/docs/guides/realtime/postgres-changes?queryGroups=database-method&database-method=sql)
 
-
 ```bash
-RABBITMQ_URL=amqp://user:password@host
-DATABASE_URL=POSTGRES_URI
-SUPABASE_URL=SUPABASE_URL
-SUPABASE_ANON_KEY=SUPABASE_ANON_KEY
-TIMEOUT_RABBITMQ=10000 // optional
+RABBITMQ_URL=amqp://admin:admin@localhost
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/postgres"
+TIMEOUT_RABBITMQ=20000 # tiempo de espera en ms para los eventos
+SUPABASE_URL=URL_PROYECTO_SUPABASE
+SUPABASE_ANON_KEY=KEY_ANONIMO_SUPABASE
 ```
 
 ### Installing Dependencies
@@ -59,12 +58,14 @@ pnpm run test
 ### Running Locally
 
 # Performing Migrations
+
 ```bash
 npx prisma generate
 npx prisma migrate dev
 ```
 
 # Running
+
 ```bash
 pnpm run dev
 ```
