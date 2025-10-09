@@ -41,38 +41,31 @@
           clip-rule="evenodd"
         />
       </svg>
-      Generación Inteligente
+      Agente inteligente
     </h3>
-    <p class="text-gray-400 text-sm">
-      Describe con detalle lo que necesitas y la IA creará las órdenes perfectas para ti.
-    </p>
+    <p class="text-gray-400 text-sm">Describe con detalle lo que necesitas</p>
   </div>
 
   <div class="flex-shrink-0 space-y-2 pb-2 border-b border-gray-800">
     <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Ejemplos rápidos:</p>
     <div class="flex flex-wrap gap-2">
       <button
-        (click)="askAi('Creame una orden para un plato vegetariano')"
+        (click)="askAi('Creame una receta vegetariana')"
         class="text-xs bg-gray-800/70 hover:bg-gray-700/70 border border-gray-700 hover:border-blue-500/50 text-gray-400 hover:text-blue-300 px-3 py-2 rounded-lg transition-all duration-200"
       >
-        Creame una orden para un plato vegetariano
+        Creame una receta vegetariana
       </button>
       <button
-        (click)="
-          askAi(
-            'Creame una orden que tenga dos recetas una con carne y otra con queso, Elije alguna de las recetas disponibles'
-          )
-        "
+        (click)="askAi('¿Qué ingredientes se están usando menos?')"
         class="text-xs bg-gray-800/70 hover:bg-gray-700/70 border border-gray-700 hover:border-blue-500/50 text-gray-400 hover:text-blue-300 px-3 py-2 rounded-lg transition-all duration-200"
       >
-        Creame una orden que tenga dos recetas una con carne y otra con queso, Elije alguna de las
-        recetas disponibles
+        ¿Qué ingredientes se están usando menos?
       </button>
       <button
-        (click)="askAi('¿Qué ingredientes tengo disponibles?')"
+        (click)="askAi('smart_order_ingredients')"
         class="text-xs bg-gray-800/70 hover:bg-gray-700/70 border border-gray-700 hover:border-blue-500/50 text-gray-400 hover:text-blue-300 px-3 py-2 rounded-lg transition-all duration-200"
       >
-        ¿Qué ingredientes tengo disponibles?
+        {{ predefinedPrompts['smart_order_ingredients'].displayText }}
       </button>
     </div>
   </div>

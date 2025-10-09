@@ -12,14 +12,17 @@ export interface IRecipe {
   name: string;
   status: string;
   createdAt: string;
+  imageUrl: string;
   updatedAt: string;
   ingredients: Ingredient[];
 }
 
 interface Ingredient {
+  id: number;
   quantity: number;
   recipeId: number;
   ingredientId: number;
+  name: string;
   missingAmount: number;
   ingredientName: string;
   createdAt: string;

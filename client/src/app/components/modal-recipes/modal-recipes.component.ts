@@ -4,6 +4,8 @@ import { KitchenService } from '../../shared/apis/kitchen.service';
 import { InventoryService } from '../../shared/apis/inventory.service';
 import { DatePipe } from '@angular/common';
 import { ModalRecipesService } from './modal-recipes.service';
+import { firstValueFrom } from 'rxjs';
+import { IRecipe } from '../../interfaces/order-history.interface';
 
 @Component({
   selector: 'app-modal-recipes',
@@ -17,52 +19,55 @@ export class ModalRecipesComponent {
   modalRecipesService = inject(ModalRecipesService);
   errorMessage = signal('');
   loading = signal(false);
+  ingredients = signal<{ [key: string]: any }>({});
 
-  recipes = signal<any[]>([]);
+  recipes = signal<IRecipe[]>([]);
 
   ngOnInit(): void {
     this.modalRecipesService.$open.subscribe((value) => {
-      if (value && this.recipes()?.length === 0) {
+      if (value) {
         this.getRecipes();
       }
     });
   }
 
-  getRecipes() {
-    this.inventoryService.getIngredients().subscribe({
-      next: ({ data: _ingredients }) => {
-        const ingredients = _ingredients.reduce((acc: any, ingredient: any) => {
-          if (!acc[ingredient.id]) {
-            acc[ingredient.id] = ingredient;
-          }
-          return acc;
-        }, {});
-        this.loading.set(true);
-        this.errorMessage.set('');
-        if (this.recipes()?.length > 0) return;
-        this.kitchenService.getRecipes().subscribe({
-          next: (res) => {
-            this.loading.set(false);
-            if (res.error) return this.errorMessage.set(res?.error?.message);
-            const recipes = res.data.map((recipe: any) => {
-              return {
-                ...recipe,
-                ingredients: recipe.ingredients.map((ingredient: any) => {
-                  return ingredients[ingredient.ingredientId];
-                }),
-              };
-            });
-            this.recipes.set(recipes);
-          },
-          error: (err) => {
-            this.loading.set(false);
-            this.errorMessage.set(err?.error?.message);
-          },
+  async getRecipes() {
+    this.errorMessage.set('');
+    this.loading.set(true);
+    if (Object.keys(this.ingredients()).length === 0) {
+      await this.setIngredients();
+    }
+    this.kitchenService.getRecipes().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.loading.set(false);
+        if (res.error) return this.errorMessage.set(res?.error?.message);
+        const recipes = res.data.map((recipe: any) => {
+          return {
+            ...recipe,
+            ingredients: recipe.ingredients.map((ingredient: any) => {
+              this.ingredients()[ingredient.ingredientId].quantity = ingredient.quantity;
+              return this.ingredients()[ingredient.ingredientId];
+            }),
+          };
         });
+        this.recipes.set(recipes);
       },
       error: (err) => {
-        console.error(err);
+        this.loading.set(false);
+        this.errorMessage.set(err?.error?.message);
       },
     });
+  }
+
+  async setIngredients() {
+    const { data: _ingredients } = await firstValueFrom(this.inventoryService.getIngredients());
+    const ingredients = _ingredients.reduce((acc: any, ingredient: any) => {
+      if (!acc[ingredient.id]) {
+        acc[ingredient.id] = ingredient;
+      }
+      return acc;
+    }, {});
+    this.ingredients.set(ingredients);
   }
 }

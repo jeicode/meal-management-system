@@ -3,6 +3,7 @@ import { PlaceOrdersService } from '../../place-orders.service';
 import { AgentService } from '../../../../shared/apis/agent.service';
 import { FormsModule } from '@angular/forms';
 import { MarkdownComponent } from 'ngx-markdown';
+import { predefinedPrompts } from './ai-form.data';
 
 interface ChatHistory {
   role: 'user' | 'model';
@@ -15,6 +16,7 @@ interface ChatHistory {
   styleUrl: './ai-form.component.css',
 })
 export class AiFormComponent {
+  predefinedPrompts = predefinedPrompts;
   messageSent = signal('');
   historyCycles = signal<number>(0);
   placeOrdersService = inject(PlaceOrdersService);
@@ -26,15 +28,14 @@ export class AiFormComponent {
   chatHistory = signal<ChatHistory[]>([]);
 
   askAi(customPrompt?: string) {
+    const key = customPrompt as keyof typeof predefinedPrompts;
     if (!this.prompt().trim() && !customPrompt)
       return this.errorMessage.set('Por favor, ingresa un mensaje');
-    if (this.historyCycles() > 3) {
-      this.chatHistory.set([]);
-      this.historyCycles.set(0);
-    }
+
     this.errorMessage.set('');
-    const _prompt = customPrompt || this.prompt();
-    this.messageSent.set(_prompt);
+    const displayText = predefinedPrompts?.[key]?.displayText;
+    const _prompt = predefinedPrompts?.[key]?.prompt || customPrompt || this.prompt();
+    this.messageSent.set(displayText || _prompt);
     this.loadingResponseAi.set(true);
     this.responseAi.set('');
     const instructions = this.getInstructionsAgentHistory();
@@ -56,6 +57,13 @@ export class AiFormComponent {
         this.loadingResponseAi.set(false);
         this.chatHistory.update((prev) => [...prev, { role: 'user', message: this.messageSent() }]);
         this.chatHistory.update((prev) => [...prev, { role: 'model', message: this.responseAi() }]);
+        if (this.historyCycles() > 4) {
+          alert(
+            'El historial del chat con el agente ha sido borrado. Esta es una limitación de la capa gratuita.',
+          );
+          this.chatHistory.set([]);
+          this.historyCycles.set(0);
+        }
       },
     });
   }

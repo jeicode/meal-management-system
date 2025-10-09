@@ -129,7 +129,7 @@
                     ></path>
                   </svg>
                   <span class="text-sm font-medium text-gray-300">
-                    Ingredientes ({{ recipe.ingredients?.length || 0 }})
+                    Ingredientes ({{ recipe.ingredients.length || 0 }})
                   </span>
                 </div>
 
@@ -144,7 +144,7 @@
                           <span class="text-gray-300 capitalize">{{ ingredient.name }}</span>
                         </div>
                         <span class="text-gray-400 text-xs">
-                          Cantidad: {{ ingredient.quantity_available }}
+                          Cantidad: {{ ingredient.quantity }}
                         </span>
                       </li>
                     }
