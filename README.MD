@@ -2,6 +2,11 @@
 
 Main repository for the microservices system for restaurant management.
 
+## 📜 License
+
+This project is open source and available under the [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/deed.es) license.
+**Commercial use of this code is strictly prohibited.**
+
 Access the demo of the application here: [https://meal-management-system-ms.vercel.app](https://meal-management-system-ms.vercel.app)
 
 ## 🧩 Microservices Description
