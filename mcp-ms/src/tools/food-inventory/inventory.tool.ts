@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { mcpServer } from '../../supabase-mcp-server'; // Asumiendo que esta es la configuración de tu framework
+import { environment } from '../../config/environment.config';
 const PurchaseItemSchema = z
   .object({
     id: z.number().describe('ID único de la transacción de compra.'),
@@ -37,7 +38,9 @@ export function listPurchaseHistoryTool() {
     },
     async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/v1/inventory/purchase-history?take=300');
+        const res = await fetch(
+          `${environment.API_GATEWAY_URL}/api/v1/inventory/purchase-history?take=300`,
+        );
         if (!res.ok) {
           const errorBody = await res.text();
           throw new Error(
