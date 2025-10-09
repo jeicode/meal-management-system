@@ -39,10 +39,9 @@ export class ModalRecipesComponent {
     }
     this.kitchenService.getRecipes().subscribe({
       next: (res) => {
-        console.log(res);
         this.loading.set(false);
         if (res.error) return this.errorMessage.set(res?.error?.message);
-        const recipes = res.data.map((recipe: any) => {
+        const recipes = res?.data?.map((recipe: any) => {
           return {
             ...recipe,
             ingredients: recipe.ingredients.map((ingredient: any) => {

@@ -65,7 +65,7 @@ export class PlaceOrdersComponent implements OnInit {
     this._kitchenService.getOrders(query).subscribe({
       next: (res) => {
         if (res.error) return this.errorMessage.set(res.error.message);
-        res.data = res.data.map((order: any) => {
+        res.data = res?.data?.map((order: any) => {
           return {
             ...order,
             totalIngredients: this.getTotalIngredientsUsedFromOrder(order),
