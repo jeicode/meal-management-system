@@ -40,7 +40,19 @@ export async function getOrdersDelivered() {
 
 export async function getOrdersHistory(params: Prisma.OrderHistoryFindManyArgs) {
   try {
-    return await orm.orderHistory.findMany(params);
+    const take = params.take || 10;
+    const skip = params.skip || 0;
+    const [data, count] = await orm.$transaction([
+      orm.orderHistory.findMany({
+        ...params,
+        take,
+        skip,
+      }),
+      orm.orderHistory.count(),
+    ]);
+    const remaining = count - skip - data.length;
+
+    return { data, pagination: { total: count, remaining, take, skip } };
   } catch (error) {
     return handleError(error);
   }

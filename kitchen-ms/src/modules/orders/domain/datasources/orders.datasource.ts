@@ -1,5 +1,7 @@
-export interface OrdersDatasource {
-    publishPendingOrder(payload: unknown): Promise<void>;
-    processKitchenOrders(data: { dishes: number }): Promise<unknown>;
-  }
-  
+export interface OrdersRpcDatasource {
+  rpcOrdersToKitchen(): Promise<unknown>;
+}
+
+export interface OrdersSubscriberDatasource {
+  subscribeToOrderChanges(): void;
+}

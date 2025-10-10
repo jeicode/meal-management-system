@@ -30,28 +30,10 @@ export async function runRabbitMQ() {
     for (const queue of QUEUES) {
       await channel.assertQueue(queue, { durable: true });
     }
-    maintainConnection(channel);
     logInfo('RabbitMQ conectado');
   } catch (err) {
     logError('❌ Error conectando a RabbitMQ:', err);
     process.exit(1);
-  }
-}
-
-async function maintainConnection(_channel: amqp.Channel) {
-  try {
-    await _channel.assertQueue('heartbeat_queue', {
-      durable: false,
-      autoDelete: true,
-      exclusive: true,
-    });
-    setInterval(async () => {
-      _channel.sendToQueue('heartbeat_queue', Buffer.from('ping'), {
-        persistent: false,
-      });
-    }, 30000);
-  } catch (error) {
-    logError('Error al conectar con RabbitMQ:', error);
   }
 }
 

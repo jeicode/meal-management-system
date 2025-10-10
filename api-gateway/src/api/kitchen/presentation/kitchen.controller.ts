@@ -16,7 +16,7 @@ export async function getOrdersController(req: Request, res: ServerResponse) {
       where,
       orderBy,
     });
-    sendResponse({ res, status: 200, data: { data } });
+    sendResponse({ res, status: 200, data });
   } catch (err) {
     handleError(err, res);
   }
